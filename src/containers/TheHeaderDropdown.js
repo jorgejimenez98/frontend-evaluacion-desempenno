@@ -1,92 +1,50 @@
-import React from 'react'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/actions/userActions";
+import { LinkContainer } from "react-router-bootstrap";
 import {
-  CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+} from "@coreui/react";
+import { FaAngleDown } from "react-icons/fa";
+import { BiLogOut } from "react-icons/all";
+import CIcon from "@coreui/icons-react";
 
-const TheHeaderDropdown = () => {
+const TheHeaderDropdown = ({ userInfo }) => {
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
-    <CDropdown
-      inNav
-      className="c-header-nav-items mx-2"
-      direction="down"
-    >
+    <CDropdown inNav className="c-header-nav-items" direction="down">
       <CDropdownToggle className="c-header-nav-link" caret={false}>
-        <div className="c-avatar">
-          <CImg
-            src={'avatars/6.jpg'}
-            className="c-avatar-img"
-            alt="admin@bootstrapmaster.com"
-          />
+        <div className="text-center">
+          <h5>
+            {userInfo?.username} <FaAngleDown />
+          </h5>
         </div>
       </CDropdownToggle>
-      <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownItem
-          header
-          tag="div"
-          color="light"
-          className="text-center"
-        >
-          <strong>Account</strong>
+      <CDropdownMenu style={{ margin: 0 }}>
+        <CDropdownItem header tag="div" color="light" className="text-center">
+          <strong>Cuenta</strong>
         </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-bell" className="mfe-2" />
-          Updates
-          <CBadge color="info" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-envelope-open" className="mfe-2" />
-          Messages
-          <CBadge color="success" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-task" className="mfe-2" />
-          Tasks
-          <CBadge color="danger" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-comment-square" className="mfe-2" />
-          Comments
-          <CBadge color="warning" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem
-          header
-          tag="div"
-          color="light"
-          className="text-center"
-        >
-          <strong>Settings</strong>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-user" className="mfe-2" />Profile
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-settings" className="mfe-2" />
-          Settings
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-credit-card" className="mfe-2" />
-          Payments
-          <CBadge color="secondary" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-file" className="mfe-2" />
-          Projects
-          <CBadge color="primary" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
+        <LinkContainer to="/user/profile"> 
+          <CDropdownItem>
+            <CIcon name="cil-user" className="mfe-2" />
+            Perfil de usuario
+          </CDropdownItem>
+        </LinkContainer>
         <CDropdownItem divider />
-        <CDropdownItem>
-          <CIcon name="cil-lock-locked" className="mfe-2" />
-          Lock Account
+        <CDropdownItem onClick={logoutHandler}>
+          <BiLogOut /> &nbsp; Salir del Sistema
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
-  )
-}
+  );
+};
 
-export default TheHeaderDropdown
+export default TheHeaderDropdown;

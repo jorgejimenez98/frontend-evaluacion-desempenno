@@ -1,84 +1,138 @@
 import React from 'react';
 
-const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
-const Tables = React.lazy(() => import('./views/base/tables/Tables'));
+const HomeScreen = React.lazy(() => import('./views/screens/HomeScreen'));
 
-const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'));
-const Cards = React.lazy(() => import('./views/base/cards/Cards'));
-const Carousels = React.lazy(() => import('./views/base/carousels/Carousels'));
-const Collapses = React.lazy(() => import('./views/base/collapses/Collapses'));
-const BasicForms = React.lazy(() => import('./views/base/forms/BasicForms'));
+// Users Components
+const UserListScreen = React.lazy(() => import('./views/screens/usersScreens/UserListScreen'));
+const UserAddScreen = React.lazy(() => import('./views/screens/usersScreens/UserAddScreen'));
+const UserEditScreen = React.lazy(() => import('./views/screens/usersScreens/editScreens/UserEditScreen'));
+const UserProfile = React.lazy(() => import('./views/screens/usersScreens/profileScreen/UserProfile'));
 
-const Jumbotrons = React.lazy(() => import('./views/base/jumbotrons/Jumbotrons'));
-const ListGroups = React.lazy(() => import('./views/base/list-groups/ListGroups'));
-const Navbars = React.lazy(() => import('./views/base/navbars/Navbars'));
-const Navs = React.lazy(() => import('./views/base/navs/Navs'));
-const Paginations = React.lazy(() => import('./views/base/paginations/Pagnations'));
-const Popovers = React.lazy(() => import('./views/base/popovers/Popovers'));
-const ProgressBar = React.lazy(() => import('./views/base/progress-bar/ProgressBar'));
-const Switches = React.lazy(() => import('./views/base/switches/Switches'));
+// Hotel Components
+const HotelsList = React.lazy(() => import('./views/screens/hotelScreens/HotelListScreen'))
+const HotelsAdd = React.lazy(() => import('./views/screens/hotelScreens/HotelAddScreen'))
+const HotelsEdit = React.lazy(() => import('./views/screens/hotelScreens/HotelEditScreen'))
 
-const Tabs = React.lazy(() => import('./views/base/tabs/Tabs'));
-const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'));
-const BrandButtons = React.lazy(() => import('./views/buttons/brand-buttons/BrandButtons'));
-const ButtonDropdowns = React.lazy(() => import('./views/buttons/button-dropdowns/ButtonDropdowns'));
-const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'));
-const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'));
-const Charts = React.lazy(() => import('./views/charts/Charts'));
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
-const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'));
-const Flags = React.lazy(() => import('./views/icons/flags/Flags'));
-const Brands = React.lazy(() => import('./views/icons/brands/Brands'));
-const Alerts = React.lazy(() => import('./views/notifications/alerts/Alerts'));
-const Badges = React.lazy(() => import('./views/notifications/badges/Badges'));
-const Modals = React.lazy(() => import('./views/notifications/modals/Modals'));
-const Colors = React.lazy(() => import('./views/theme/colors/Colors'));
-const Typography = React.lazy(() => import('./views/theme/typography/Typography'));
-const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
-const Users = React.lazy(() => import('./views/users/Users'));
-const User = React.lazy(() => import('./views/users/User'));
+// Family Components
+const FamilyListScreen = React.lazy(() => import('./views/screens/familyScreens/FamilyListScreen'))
+const FamilyImportScreen = React.lazy(() => import('./views/screens/familyScreens/options/ImportFamilies'))
+
+// Sell Area Components
+const SellAreaList = React.lazy(() => import('./views/screens/sellAreaScreens/SellAreaList'))
+const SellAreaImport = React.lazy(() => import('./views/screens/sellAreaScreens/SellAreaImport'))
+
+// Coin Components
+const CoinList = React.lazy(() => import('./views/screens/coinScreens/CoinList'));
+
+// Workers Components
+const WorkerList = React.lazy(() => import('./views/screens/workerScreens/WorkerList'));
+const WorkerEditOperator = React.lazy(() => import('./views/screens/workerScreens/WorkerEditOperator'));
+const ImportWorkerList = React.lazy(() => import('./views/screens/workerScreens/ImportWorkerList'));
+
+// Charge Components
+const ChargeList = React.lazy(() => import('./views/screens/chargesScreens/ChargeList'));
+const CategoryList = React.lazy(() => import('./views/screens/categoryScreens/CategoryList'));
+
+// Sell Plans Components
+const SellAnualPlanList = React.lazy(() => import('./views/screens/sellPlanScreens/SellAnualPlanList'));
+const SaleAnualPlanEdit = React.lazy(() => import('./views/screens/sellPlanScreens/SaleAnualPlanEdit'));
+const SaleAnualPlanAdd = React.lazy(() => import('./views/screens/sellPlanScreens/SaleAnualPlanAdd'));
+
+// Monthly Sale Plans Components 
+const MonthlySalePlanList = React.lazy(() => import('./views/screens/monthlySalePlanScreens/MonthlySalePlanList'));
+const MonthlySalePlanAdd = React.lazy(() => import('./views/screens/monthlySalePlanScreens/MonthlySalePlanAdd'));
+const MonthlySalePlanEdit = React.lazy(() => import('./views/screens/monthlySalePlanScreens/MonthlySalePlanEdit'));
+
+// Pay Times Components 
+const PayTimeList = React.lazy(() => import('./views/screens/payTimesScreens/PayTimeList'))
+const ImportPayTimes = React.lazy(() => import('./views/screens/payTimesScreens/ImportPayTimes'))
+
+// Monthly Evaluation Components 
+
+const ShowPerformanceBook = React.lazy(() => import('./views/screens/PerformanceBooksScreens/ShowPerformanceBook'))
+
+const MonthlyEvaluationList = React.lazy(() => import('./views/screens/monthlyEvaluationScreens/MonthlyEvaluationList'))
+const AddMonthlyGastronomyEvaluation = React.lazy(() => import('./views/screens/monthlyEvaluationScreens/AddMonthlyGastronomyEvaluation'))
+const EditMonthlyGastronomyEvaluation = React.lazy(() => import('./views/screens/monthlyEvaluationScreens/EditMonthlyGastronomyEvaluation'))
+const ShowMonthlyGastronomyEvaluation = React.lazy(() => import('./views/screens/monthlyEvaluationScreens/ShowMonthlyGastronomyEvaluation'))
+
+// Monthly Melia Components
+const EditMonthlyMeliaEvaluation = React.lazy(() => import('./views/screens/monthlyMeliaEvaluations/EditMonthlyMeliaEvaluation'))
+const ShowMonthlyMeliaEvaluation = React.lazy(() => import('./views/screens/monthlyMeliaEvaluations/ShowMonthlyMeliaEvaluation'))
+
+// Anual Evaluation Components 
+const AnualEvaluationsList = React.lazy(() => import('./views/screens/anualEvaluationScreens/AnualEvaluationsList'))
+const AnualEvaluationAdd = React.lazy(() => import('./views/screens/anualEvaluationScreens/AnualEvaluationAdd'))
+const AnualEvaluationEdit = React.lazy(() => import('./views/screens/anualEvaluationScreens/AnualEvaluationEdit'))
+const AnualEvaluationShow = React.lazy(() => import('./views/screens/anualEvaluationScreens/AnualEvaluationShow'))
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/theme', name: 'Theme', component: Colors, exact: true },
-  { path: '/theme/colors', name: 'Colors', component: Colors },
-  { path: '/theme/typography', name: 'Typography', component: Typography },
-  { path: '/base', name: 'Base', component: Cards, exact: true },
-  { path: '/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs },
-  { path: '/base/cards', name: 'Cards', component: Cards },
-  { path: '/base/carousels', name: 'Carousel', component: Carousels },
-  { path: '/base/collapses', name: 'Collapse', component: Collapses },
-  { path: '/base/forms', name: 'Forms', component: BasicForms },
-  { path: '/base/jumbotrons', name: 'Jumbotrons', component: Jumbotrons },
-  { path: '/base/list-groups', name: 'List Groups', component: ListGroups },
-  { path: '/base/navbars', name: 'Navbars', component: Navbars },
-  { path: '/base/navs', name: 'Navs', component: Navs },
-  { path: '/base/paginations', name: 'Paginations', component: Paginations },
-  { path: '/base/popovers', name: 'Popovers', component: Popovers },
-  { path: '/base/progress-bar', name: 'Progress Bar', component: ProgressBar },
-  { path: '/base/switches', name: 'Switches', component: Switches },
-  { path: '/base/tables', name: 'Tables', component: Tables },
-  { path: '/base/tabs', name: 'Tabs', component: Tabs },
-  { path: '/base/tooltips', name: 'Tooltips', component: Tooltips },
-  { path: '/buttons', name: 'Buttons', component: Buttons, exact: true },
-  { path: '/buttons/buttons', name: 'Buttons', component: Buttons },
-  { path: '/buttons/button-dropdowns', name: 'Dropdowns', component: ButtonDropdowns },
-  { path: '/buttons/button-groups', name: 'Button Groups', component: ButtonGroups },
-  { path: '/buttons/brand-buttons', name: 'Brand Buttons', component: BrandButtons },
-  { path: '/charts', name: 'Charts', component: Charts },
-  { path: '/icons', exact: true, name: 'Icons', component: CoreUIIcons },
-  { path: '/icons/coreui-icons', name: 'CoreUI Icons', component: CoreUIIcons },
-  { path: '/icons/flags', name: 'Flags', component: Flags },
-  { path: '/icons/brands', name: 'Brands', component: Brands },
-  { path: '/notifications', name: 'Notifications', component: Alerts, exact: true },
-  { path: '/notifications/alerts', name: 'Alerts', component: Alerts },
-  { path: '/notifications/badges', name: 'Badges', component: Badges },
-  { path: '/notifications/modals', name: 'Modals', component: Modals },
-  { path: '/notifications/toaster', name: 'Toaster', component: Toaster },
-  { path: '/widgets', name: 'Widgets', component: Widgets },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
-  { path: '/users/:id', exact: true, name: 'User Details', component: User }
+  // Public Routes
+  { path: '/', exact: true, name: 'Casa' },
+  { path: '/dashboard', name: 'Panel Administrativo', component: HomeScreen },
+
+  // Users Urls
+  { path: '/user/profile', name: 'Perfíl de Usuario', component: UserProfile },
+  { path: '/users/list', name: 'Listado de Usuarios', component: UserListScreen, exact: true},
+  { path: '/users/list/add', name: 'Insertar Usuario', component: UserAddScreen },
+  { path: "/users/list/edit/:id", name: 'Editar Usuario', component: UserEditScreen },
+
+  // Hotel Routers
+  { path: '/hotels', name: 'Listado de Hoteles', component: HotelsList, exact: true},
+  { path: '/hotels/add', name: 'Insertar Hotel', component: HotelsAdd },
+  { path: "/hotels/edit/:id", name: 'Editar Hotel', component: HotelsEdit },
+
+  // Family Router
+  { path: '/families', name: 'Listado de Familias', component: FamilyListScreen, exact: true},
+  { path: '/families/import', name: 'Importe de Familias', component: FamilyImportScreen},
+
+  // Sell Area Router 
+  { path: '/sellArea/:id', name: 'Puntos de Ventas', component: SellAreaList, exact: true},
+  { path: '/import/sellArea/:id', name: 'Importar Puntos de Ventas', component: SellAreaImport},
+
+  // Coins 
+  { path: '/coins', name: 'Moneda Base', component: CoinList},
+
+  // Workers 
+  { path: '/workers/:id', name: 'Trabajadores', component: WorkerList, exact: true},
+  { path: '/operator/worker/:workerId/:hotelId', name: 'Selección de Operador', component: WorkerEditOperator},
+  { path: '/import/workers/:id/', name: 'Importar Trabajadores', component: ImportWorkerList},
+
+  // Charges
+  { path: '/charges/', name: 'Cargos Discponibles', component: ChargeList},
+  { path: '/categories/', name: 'Categorías Ocupacionales', component: CategoryList},
+
+  // Sell Anual Plans
+  { path: '/sellPlans/:id', name: 'Plan de Ventas', component: SellAnualPlanList, exact: true},
+  { path: '/sellPlan/:hotelId/edit/:id', name: 'Editar Plan de Ventas', component: SaleAnualPlanEdit},
+  { path: '/sellPlan/:hotelId/add', name: 'Ingresar Plan de Ventas', component: SaleAnualPlanAdd},
+
+  // Monthly Sale Plans
+  { path: '/monthlySalePlan/:hotelId/list/:anualSalePlanId', name: 'Planes mensuales de Ventas', component: MonthlySalePlanList},
+  { path: '/monthlySalePlan/:hotelId/add/:anualSalePlanId', name: 'Insertar Plan Mensual de Venta', component: MonthlySalePlanAdd},
+  { path: '/monthlySalePlan/:hotelId/edit/:anualSalePlanId/:monthlySalePlanId', name: 'Editar Plan Mensual de Venta', component: MonthlySalePlanEdit},
+
+  // Pay Times Routers
+  { path: '/payTimes', name: 'Períodos de Pago', component: PayTimeList, exact: true},
+  { path: '/payTimes/import', name: 'Importar Períodos de Pago', component: ImportPayTimes},
+
+  // Monthly Evaluation Rotuers 
+  { path: '/performanceBook/:workerId/:payTimeId/:hotelId', name: 'Libro del Desempeño', component: ShowPerformanceBook},
+  
+  { path: '/evaluations/monthly/:hotelId', name: 'Evaluaciones Mensuales', component: MonthlyEvaluationList, exact: true},
+  { path: '/evaluation/gastronomy/monthly/add/:hotelId/:workerId/:payTimeId', name: 'Insertar Evaluación Mensual de Gastronomía', component: AddMonthlyGastronomyEvaluation},
+  { path: '/evaluation/gastronomy/monthly/edit/:hotelId/:workerId/:payTimeId/:evalId', name: 'Editar Evaluación Mensual de Gastronomía', component: EditMonthlyGastronomyEvaluation},
+  { path: '/evaluation/gastronomy/monthly/show/:hotelId/:workerId/:payTimeId/:evalId', name: 'Consultar Evaluación Mensual de Gastronomía', component: ShowMonthlyGastronomyEvaluation},
+  
+  // Monthly Melia Evaluations Routers
+  { path: '/evaluation/monthly/melia/edit/:hotelId/:workerId/:payTimeId/:gastronomyEvaluationId/:meliaEvaluationId', name: 'Editar Evaluación Mensual de Melia', component: EditMonthlyMeliaEvaluation},
+  { path: '/evaluation/monthly/melia/show/:hotelId/:workerId/:payTimeId/:gastronomyEvaluationId/:meliaEvaluationId', name: 'Consultar Evaluación Mensual de Melia', component: ShowMonthlyMeliaEvaluation},
+
+  // Anual Evaluation Routers 
+  { path: '/evaluations/anual/:hotelId', name: 'Evaluaciones Anuales', component: AnualEvaluationsList, exact: true},
+  { path: '/evaluation/anual/add/:hotelId/:workerId/:year', name: 'Insertar Evaluación Anual', component: AnualEvaluationAdd },
+  { path: '/evaluation/anual/edit/:hotelId/:workerId/:year/:evaluationId', name: 'Editar Evaluación Anual', component: AnualEvaluationEdit },
+  { path: '/evaluation/anual/show/:hotelId/:workerId/:year/:evaluationId', name: 'Consultar Evaluación Anual', component: AnualEvaluationShow },
 ];
 
 export default routes;

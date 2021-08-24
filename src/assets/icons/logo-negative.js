@@ -1,4 +1,6 @@
-export const logoNegative = ['608 134', `
+export const logoNegative = [
+  "608 134",
+  `
   <title>coreui react pro logo</title>
   <g>
     <g style="fill:#80d0ff;">
@@ -26,5 +28,6 @@ export const logoNegative = ['608 134', `
         <rect x="307.835" y="46" width="8" height="38" rx="1"/>
       </g>
     </g>
-  </g>
-`]
+  </g>  
+`,
+];
