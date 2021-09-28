@@ -4,6 +4,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import { FaBook } from "react-icons/all";
 import { LinkContainer } from "react-router-bootstrap";
 import { Add } from "@material-ui/icons";
+import PersonPinCircleIcon from "@material-ui/icons/PersonPinCircle";
 
 export const columns = [
   {
@@ -39,8 +40,8 @@ export const columns = [
       sort: false,
       customBodyRender: (evalId, tableMeta) => {
         const fullName = tableMeta.rowData[1];
-        const hotelId = tableMeta.rowData[5];
-        const payTimeId = tableMeta.rowData[6];
+        const hotelId = tableMeta.rowData[6];
+        const payTimeId = tableMeta.rowData[7];
         const workerId = tableMeta.rowData[0];
         return (
           <div>
@@ -99,8 +100,8 @@ export const columns = [
       filterType: "dropdown",
       customBodyRender: (value, tableMeta) => {
         const fullName = tableMeta.rowData[1];
-        const hotelId = tableMeta.rowData[5];
-        const payTimeId = tableMeta.rowData[6];
+        const hotelId = tableMeta.rowData[6];
+        const payTimeId = tableMeta.rowData[7];
         const workerId = tableMeta.rowData[0];
         const gastronomyEvaluation = tableMeta.rowData[2];
         const disabled = gastronomyEvaluation === null;
@@ -159,11 +160,11 @@ export const columns = [
       filterType: "dropdown",
       customBodyRender: (value, tableMeta) => {
         const fullName = tableMeta.rowData[1];
-        const hotelId = tableMeta.rowData[5];
-        const payTimeId = tableMeta.rowData[6];
+        const hotelId = tableMeta.rowData[6];
+        const payTimeId = tableMeta.rowData[7];
         const workerId = tableMeta.rowData[0];
         return (
-          <div>
+          <div className="ml-4">
             <LinkContainer
               to={`/performanceBook/${workerId}/${payTimeId}/${hotelId}`}
             >
@@ -173,6 +174,36 @@ export const columns = [
               >
                 <IconButton>
                   <FaBook />
+                </IconButton>
+              </Tooltip>
+            </LinkContainer>
+          </div>
+        );
+      },
+    },
+  },
+  {
+    name: "",
+    label: "Incidencias",
+    options: {
+      filter: false,
+      sort: false,
+      customBodyRender: (value, tableMeta) => {
+        const fullName = tableMeta.rowData[1];
+        const hotelId = tableMeta.rowData[6];
+        const payTimeId = tableMeta.rowData[7];
+        const workerId = tableMeta.rowData[0];
+        return (
+          <div>
+            <LinkContainer
+              to={`/worker/incidents/show/${hotelId}/${workerId}/${payTimeId}/`}
+            >
+              <Tooltip
+                title={`Consultar incidencias de ${fullName}`}
+                placement="bottom"
+              >
+                <IconButton>
+                  <PersonPinCircleIcon />
                 </IconButton>
               </Tooltip>
             </LinkContainer>
