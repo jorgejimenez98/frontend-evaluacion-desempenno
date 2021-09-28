@@ -60,6 +60,9 @@ const ShowMonthlyGastronomyEvaluation = React.lazy(() => import('./views/screens
 const EditMonthlyMeliaEvaluation = React.lazy(() => import('./views/screens/monthlyMeliaEvaluations/EditMonthlyMeliaEvaluation'))
 const ShowMonthlyMeliaEvaluation = React.lazy(() => import('./views/screens/monthlyMeliaEvaluations/ShowMonthlyMeliaEvaluation'))
 
+// Worker Incidents Components
+const WorkerIncidents = React.lazy(() => import('./views/screens/incidentScreens/WorkerIncidents'))
+
 // Anual Evaluation Components 
 const AnualEvaluationsList = React.lazy(() => import('./views/screens/anualEvaluationScreens/AnualEvaluationsList'))
 const AnualEvaluationAdd = React.lazy(() => import('./views/screens/anualEvaluationScreens/AnualEvaluationAdd'))
@@ -123,6 +126,9 @@ const routes = [
   { path: '/evaluation/gastronomy/monthly/add/:hotelId/:workerId/:payTimeId', name: 'Insertar Evaluación Mensual de Gastronomía', component: AddMonthlyGastronomyEvaluation},
   { path: '/evaluation/gastronomy/monthly/edit/:hotelId/:workerId/:payTimeId/:evalId', name: 'Editar Evaluación Mensual de Gastronomía', component: EditMonthlyGastronomyEvaluation},
   { path: '/evaluation/gastronomy/monthly/show/:hotelId/:workerId/:payTimeId/:evalId', name: 'Consultar Evaluación Mensual de Gastronomía', component: ShowMonthlyGastronomyEvaluation},
+  
+  // Worker Incidents Router
+  { path: '/worker/incidents/show/:hotelId/:workerId/:payTimeId/', name: 'Consultar Incidencias del trabajador', component: WorkerIncidents},
   
   // Monthly Melia Evaluations Routers
   { path: '/evaluation/monthly/melia/edit/:hotelId/:workerId/:payTimeId/:gastronomyEvaluationId/:meliaEvaluationId', name: 'Editar Evaluación Mensual de Melia', component: EditMonthlyMeliaEvaluation},
