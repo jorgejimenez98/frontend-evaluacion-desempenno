@@ -196,7 +196,7 @@ export const columns = [
         return (
           <div>
             <LinkContainer
-              to={`/worker/incidents/show/${hotelId}/${workerId}/${payTimeId}/`}
+              to={`/incidents/worker/show/${hotelId}/${workerId}/${payTimeId}`}
             >
               <Tooltip
                 title={`Consultar incidencias de ${fullName}`}

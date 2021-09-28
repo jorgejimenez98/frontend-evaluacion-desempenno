@@ -128,7 +128,7 @@ const routes = [
   { path: '/evaluation/gastronomy/monthly/show/:hotelId/:workerId/:payTimeId/:evalId', name: 'Consultar Evaluación Mensual de Gastronomía', component: ShowMonthlyGastronomyEvaluation},
   
   // Worker Incidents Router
-  { path: '/worker/incidents/show/:hotelId/:workerId/:payTimeId/', name: 'Consultar Incidencias del trabajador', component: WorkerIncidents},
+  { path: '/incidents/worker/show/:hotelId/:workerId/:payTimeId/', name: 'Consultar Incidencias del trabajador', component: WorkerIncidents},
   
   // Monthly Melia Evaluations Routers
   { path: '/evaluation/monthly/melia/edit/:hotelId/:workerId/:payTimeId/:gastronomyEvaluationId/:meliaEvaluationId', name: 'Editar Evaluación Mensual de Melia', component: EditMonthlyMeliaEvaluation},
