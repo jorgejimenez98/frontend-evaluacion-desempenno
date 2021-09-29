@@ -11,6 +11,7 @@ import SubsidyTable from "./tables/SubsidyTable";
 // Constants
 import { PAYTIMES_DETAILS_RESET } from "src/redux/constants/payTimesConstants";
 import { WORKER_DETAILS_RESET } from "src/redux/constants/workerConstants";
+import { INCIDENTS } from "src/redux/constants/incidentsConstants";
 // Actions
 import { getPayTimeDetails } from "src/redux/actions/payTimesActions";
 import { getWorkerDetails } from "src/redux/actions/workerActions";
@@ -59,6 +60,7 @@ function WorkerIncidents({ match, history }) {
     return () => {
       dispatch({ type: WORKER_DETAILS_RESET });
       dispatch({ type: PAYTIMES_DETAILS_RESET });
+      dispatch({ type: INCIDENTS.INCIDENTS_RESET });
     };
   }, [userInfo, dispatch, history, workerId, payTimeId]);
 
