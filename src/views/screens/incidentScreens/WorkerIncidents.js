@@ -2,6 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // Components
 import GoBackButtonListHeader from "src/containers/utils/GoBackButtonListHeader";
+import PaymentsTable from "./tables/PaymentsTable";
+import DiscountTabla from "./tables/DiscountTable";
+import AbsencesTable from "./tables/AbsencesTable";
+import VacationTable from "./tables/VacationTable";
+import WithHoldingsTable from "./tables/WithHoldingsTable";
+import SubsidyTable from "./tables/SubsidyTable";
 // Constants
 import { PAYTIMES_DETAILS_RESET } from "src/redux/constants/payTimesConstants";
 import { WORKER_DETAILS_RESET } from "src/redux/constants/workerConstants";
@@ -33,8 +39,6 @@ function WorkerIncidents({ match, history }) {
 
   // Incidents Selector
   const { loading, error, data } = useSelector((state) => state.incidents);
-
-  console.log("Incidencias", data);
 
   useEffect(() => {
     if (!userInfo) {
@@ -91,7 +95,23 @@ function WorkerIncidents({ match, history }) {
             ) : error ? (
               error && <Message variant="danger">{error}</Message>
             ) : (
-              <React.Fragment>Todo esta bien</React.Fragment>
+              data && (
+                <React.Fragment>
+                  {data.pagos && <PaymentsTable list={data.pagos} />}
+                  <hr />
+                  {data.descuentos && <DiscountTabla list={data.descuentos} />}
+                  <hr />
+                  {data.ausencias && <AbsencesTable list={data.ausencias} />}
+                  <hr />
+                  {data.vacaciones && <VacationTable list={data.vacaciones} />}
+                  <hr />
+                  {data.retenciones && (
+                    <WithHoldingsTable list={data.retenciones} />
+                  )}
+                  <hr />
+                  {data.subsidios && <SubsidyTable list={data.subsidios} />}
+                </React.Fragment>
+              )
             )}
           </CCardBody>
         </CCard>
