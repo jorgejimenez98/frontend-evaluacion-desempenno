@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useReactToPrint } from "react-to-print";
 // Components
 import GoBackButtonListHeader from "src/containers/utils/GoBackButtonListHeader";
 // Constants
@@ -9,7 +8,8 @@ import { WORKER_DETAILS_RESET } from "src/redux/constants/workerConstants";
 // Actions
 import { getPayTimeDetails } from "src/redux/actions/payTimesActions";
 import { getWorkerDetails } from "src/redux/actions/workerActions";
-import { Message } from "src/containers/utils";
+import { getWorkerIncidents } from "src/redux/actions/incidentActions";
+import { Message, Loader } from "src/containers/utils";
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 
 function WorkerIncidents({ match, history }) {
@@ -31,6 +31,11 @@ function WorkerIncidents({ match, history }) {
     (state) => state.payTimesDetails
   );
 
+  // Incidents Selector
+  const { loading, error, data } = useSelector((state) => state.incidents);
+
+  console.log("Incidencias", data);
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -42,6 +47,9 @@ function WorkerIncidents({ match, history }) {
       }
       if (payTimeId) {
         dispatch(getPayTimeDetails(payTimeId));
+      }
+      if (workerId && payTimeId) {
+        dispatch(getWorkerIncidents({ workerId, payTimeId }));
       }
     }
     return () => {
@@ -76,7 +84,16 @@ function WorkerIncidents({ match, history }) {
             </CRow>
           </CCardHeader>
 
-          <CCardBody>La cosa va aqui adentro</CCardBody>
+          <CCardBody>
+            {/* MAIN CONTENT */}
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              error && <Message variant="danger">{error}</Message>
+            ) : (
+              <React.Fragment>Todo esta bien</React.Fragment>
+            )}
+          </CCardBody>
         </CCard>
       )}
     </React.Fragment>
