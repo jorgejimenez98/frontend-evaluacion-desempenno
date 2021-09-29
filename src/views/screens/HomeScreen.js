@@ -166,63 +166,6 @@ const HomeScreen = ({ history }) => {
           </CCardBody>
         </CCard>
       </CCardGroup>
-
-      <CRow>
-        <CCol sm="6" md="2">
-          <CWidgetProgressIcon
-            header="87.500"
-            text="Visitors"
-            color="gradient-info"
-          >
-            <CIcon name="cil-people" height="36" />
-          </CWidgetProgressIcon>
-        </CCol>
-        <CCol sm="6" md="2">
-          <CWidgetProgressIcon
-            header="385"
-            text="New Clients"
-            color="gradient-success"
-          >
-            <CIcon name="cil-userFollow" height="36" />
-          </CWidgetProgressIcon>
-        </CCol>
-        <CCol sm="6" md="2">
-          <CWidgetProgressIcon
-            header="1238"
-            text="Products sold"
-            color="gradient-warning"
-          >
-            <CIcon name="cil-basket" height="36" />
-          </CWidgetProgressIcon>
-        </CCol>
-        <CCol sm="6" md="2">
-          <CWidgetProgressIcon
-            header="28%"
-            text="Returning Visitors"
-            color="gradient-primary"
-          >
-            <CIcon name="cil-chartPie" height="36" />
-          </CWidgetProgressIcon>
-        </CCol>
-        <CCol sm="6" md="2">
-          <CWidgetProgressIcon
-            header="5:34:11"
-            text="Avg. Time"
-            color="gradient-danger"
-          >
-            <CIcon name="cil-speedometer" height="36" />
-          </CWidgetProgressIcon>
-        </CCol>
-        <CCol sm="6" md="2">
-          <CWidgetProgressIcon
-            header="972"
-            text="comments"
-            color="gradient-info"
-          >
-            <CIcon name="cil-speech" height="36" />
-          </CWidgetProgressIcon>
-        </CCol>
-      </CRow>
     </React.Fragment>
   );
 };
