@@ -133,6 +133,9 @@ import {
   anualEvaluationsEditReducer,
 } from "src/redux/reducers/anualEvaluationReducers";
 
+// Incidents Reducers
+import { incidentsReducers } from 'src/redux/reducers/incidentsReducers'
+
 // Obtain the authenticated user from localstorage
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
@@ -250,6 +253,9 @@ const reducers = combineReducers({
   anualEvaluationsAdd: anualEvaluationsAddReducer,
   anualEvaluationsDetails: anualEvaluationsDetailsReducer,
   anualEvaluationsEdit: anualEvaluationsEditReducer,
+
+  // Incidents Reducers
+  incidents: incidentsReducers,
 });
 
 const middleware = [thunk];
