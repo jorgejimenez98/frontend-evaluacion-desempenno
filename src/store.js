@@ -136,6 +136,9 @@ import {
 // Incidents Reducers
 import { incidentsReducers } from 'src/redux/reducers/incidentsReducers'
 
+// DashBoard Reducers
+import { numbersReducers } from 'src/redux/reducers/dashboardReducers'
+
 // Obtain the authenticated user from localstorage
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
@@ -256,6 +259,9 @@ const reducers = combineReducers({
 
   // Incidents Reducers
   incidents: incidentsReducers,
+
+  // DashBoard Reducers:
+  numbers: numbersReducers,
 });
 
 const middleware = [thunk];
