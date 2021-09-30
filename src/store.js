@@ -134,10 +134,14 @@ import {
 } from "src/redux/reducers/anualEvaluationReducers";
 
 // Incidents Reducers
-import { incidentsReducers } from 'src/redux/reducers/incidentsReducers'
+import { incidentsReducers } from "src/redux/reducers/incidentsReducers";
 
 // DashBoard Reducers
-import { numbersReducers } from 'src/redux/reducers/dashboardReducers'
+import {
+  numbersReducers,
+  evaluationRangeReducer,
+  evaluationAnualRangeReducer,
+} from "src/redux/reducers/dashboardReducers";
 
 // Obtain the authenticated user from localstorage
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -262,6 +266,8 @@ const reducers = combineReducers({
 
   // DashBoard Reducers:
   numbers: numbersReducers,
+  evaluationRange: evaluationRangeReducer,
+  evaluationAnualRange: evaluationAnualRangeReducer,
 });
 
 const middleware = [thunk];
