@@ -13,7 +13,7 @@ export const numbersReducers = (
       return { loading: true };
 
     case NUMBERS.DATA_SUCCESS:
-      const data = JSON.parse(action.payload[1]);
+      const data = action.payload;
       return {
         loading: false,
         users: data.users,
@@ -26,7 +26,7 @@ export const numbersReducers = (
       return { loading: false, error: action.payload };
 
     case NUMBERS.DATA_RESET:
-      return {};
+      return { users: 0, salePlans: 0, salePlaces: 0, families: 0 };
 
     default:
       return state;
@@ -34,7 +34,7 @@ export const numbersReducers = (
 };
 
 export const evaluationRangeReducer = (
-  state = { evaluationRange: [] },
+  state = { evaluationRange: { veryGood: 0, good: 0, regular: 0, bad: 0 } },
   action
 ) => {
   switch (action.type) {
@@ -42,17 +42,22 @@ export const evaluationRangeReducer = (
       return { loading: true };
 
     case RANGE_EVALUATION.EVALUATIONS_RANGE_SUCCESS:
-      const data = JSON.parse(action.payload[1]);
+      const data = action.payload;
       return {
         loading: false,
-        evaluationRange: data,
+        evaluationRange: {
+          veryGood: data.veryGood,
+          good: data.good,
+          regular: data.regular,
+          bad: data.bad,
+        },
       };
 
     case RANGE_EVALUATION.EVALUATIONS_RANGE_ERROR:
       return { loading: false, error: action.payload };
 
     case RANGE_EVALUATION.EVALUATIONS_RANGE_RESET:
-      return {};
+      return { evaluationRange: { veryGood: 0, good: 0, regular: 0, bad: 0 } };
 
     default:
       return state;
@@ -60,7 +65,7 @@ export const evaluationRangeReducer = (
 };
 
 export const evaluationAnualRangeReducer = (
-  state = { evaluationRange: [] },
+  state = { evaluationRange: { veryGood: 0, good: 0, bad: 0 } },
   action
 ) => {
   switch (action.type) {
@@ -68,17 +73,21 @@ export const evaluationAnualRangeReducer = (
       return { loading: true };
 
     case ANUAL_EVALUATION.EVALUATIONS_RANGE_SUCCESS:
-      const data = JSON.parse(action.payload[1]);
+      const data = action.payload;
       return {
         loading: false,
-        evaluationRange: data,
+        evaluationRange: {
+          veryGood: data.veryGood,
+          good: data.good,
+          bad: data.bad,
+        },
       };
 
     case ANUAL_EVALUATION.EVALUATIONS_RANGE_ERROR:
       return { loading: false, error: action.payload };
 
     case ANUAL_EVALUATION.EVALUATIONS_RANGE_RESET:
-      return {};
+      return { evaluationRange: { veryGood: 0, good: 0, bad: 0 } };
 
     default:
       return state;
