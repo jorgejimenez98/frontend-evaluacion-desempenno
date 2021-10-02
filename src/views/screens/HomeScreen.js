@@ -4,6 +4,11 @@ import { Loader, Message } from "src/containers/utils";
 import { CCard, CCardBody, CCardGroup, CCardHeader } from "@coreui/react";
 import { CChartPie, CChartDoughnut } from "@coreui/react-chartjs";
 import {
+  RANGE_EVALUATION,
+  ANUAL_EVALUATION,
+  NUMBERS,
+} from "src/redux/constants/dashboardConstants";
+import {
   getMainNumbers,
   getRangeEvaluation,
   getAnualRangeEvaluation,
@@ -50,6 +55,11 @@ const HomeScreen = ({ history }) => {
       dispatch(getRangeEvaluation());
       dispatch(getAnualRangeEvaluation());
     }
+    return () => {
+      dispatch({ type: NUMBERS.DATA_RESET });
+      dispatch({ type: RANGE_EVALUATION.EVALUATIONS_RANGE_RESET });
+      dispatch({ type: ANUAL_EVALUATION.EVALUATIONS_RANGE_RESET });
+    };
   }, [userInfo, history, dispatch]);
 
   return (
@@ -83,7 +93,11 @@ const HomeScreen = ({ history }) => {
                   datasets={[
                     {
                       backgroundColor: ["#41B883", "#00D8FF", "#DD1B16"],
-                      data: evaluationAnualRange,
+                      data: [
+                        evaluationAnualRange.veryGood,
+                        evaluationAnualRange.good,
+                        evaluationAnualRange.bad,
+                      ],
                     },
                   ]}
                   labels={["Superior", "Adecuado", "Deficiente"]}
@@ -119,7 +133,12 @@ const HomeScreen = ({ history }) => {
                           "#adff2f",
                           "#DD1B16",
                         ],
-                        data: evaluationRange,
+                        data: [
+                          evaluationRange.veryGood,
+                          evaluationRange.good,
+                          evaluationRange.regular,
+                          evaluationRange.bad,
+                        ],
                       },
                     ]}
                     labels={["Muy Bien", "Bien", "Regular", "Mal"]}
