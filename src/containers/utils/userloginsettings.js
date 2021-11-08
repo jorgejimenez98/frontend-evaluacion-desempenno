@@ -20,7 +20,7 @@ export const tokenhasExpired = (userInfo) => {
 export const redirectLogin = (history, dispatch) => {
   history.push("/login");
   const message =
-    "Su token de aitenticación se ha vencido. Acceda otra vez al sistema";
+    "Su token de autenticación se ha vencido. Acceda otra vez al sistema";
   dispatch({
     type: USER_LOGIN_FAIL,
     payload: message,
