@@ -24,6 +24,10 @@ import {
   validationSchema,
 } from "./options/hotelValidationSchema";
 import { HOTEL_ADD_RESET } from "src/redux/constants/hotelConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function HotelAddScreen({ history }) {
   const dispatch = useDispatch();
@@ -42,6 +46,9 @@ function HotelAddScreen({ history }) {
       history.push("/login");
     } else if (!userInfo.isAdmin) {
       history.push("/403");
+    }
+    if (tokenhasExpired(userInfo)) {
+      redirectLogin(history, dispatch);
     }
     if (success) {
       dispatch(
@@ -174,7 +181,7 @@ function HotelAddScreen({ history }) {
                     id="zunPrUnidadOrganizativaId"
                     name="zunPrUnidadOrganizativaId"
                     type={"number"}
-                    placeholder={'Escribe aquí'}
+                    placeholder={"Escribe aquí"}
                     value={formik.values.zunPrUnidadOrganizativaId}
                     invalid={
                       formik.touched.zunPrUnidadOrganizativaId &&

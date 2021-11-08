@@ -18,6 +18,10 @@ import {
   getCoinListFromPms,
   rebuilMyCoinList,
 } from "src/redux/actions/coinActions";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function CoinList({ history }) {
   const dispatch = useDispatch();
@@ -55,6 +59,9 @@ function CoinList({ history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successRebuild) {
         const message = "Moneda base cargada satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

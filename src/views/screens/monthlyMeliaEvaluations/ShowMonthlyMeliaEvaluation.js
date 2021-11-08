@@ -40,6 +40,10 @@ import {
   CCol,
   CRow,
 } from "@coreui/react";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function ShowMonthlyMeliaEvaluation({ match, history }) {
   const dispatch = useDispatch();
@@ -111,6 +115,9 @@ function ShowMonthlyMeliaEvaluation({ match, history }) {
     } else if (userInfo.IsFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (meliaEvaluationId) {
         dispatch(getMonthlyMeliaEvaluationDetails(meliaEvaluationId));
       }

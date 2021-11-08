@@ -25,6 +25,10 @@ import {
   sincronizeWorkers,
   rebuildWorkersList,
 } from "src/redux/actions/workerActions";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function WorkerList({ match, history }) {
   const hotelId = match.params.id;
@@ -70,6 +74,9 @@ function WorkerList({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successDelete) {
         const message = "Trabajadores Eliminados Satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

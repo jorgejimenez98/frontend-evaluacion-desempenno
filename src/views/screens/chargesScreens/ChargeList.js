@@ -18,6 +18,10 @@ import {
   CHARGE_LIST_REBUILD_RESET,
   CHARGE_LIST_ZUNPR_RESET,
 } from "src/redux/constants/chargeConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function ChargeList({ history }) {
   const dispatch = useDispatch();
@@ -51,6 +55,9 @@ function ChargeList({ history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successRebuild) {
         const message = "Cargos sincronizados satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));
@@ -60,7 +67,7 @@ function ChargeList({ history }) {
     }
     return () => {
       dispatch({ type: CHARGE_LIST_REBUILD_RESET });
-    }
+    };
   }, [dispatch, userInfo, history, successPR, successRebuild]);
 
   // Remover Several Defaults Icons From Mui Datatable

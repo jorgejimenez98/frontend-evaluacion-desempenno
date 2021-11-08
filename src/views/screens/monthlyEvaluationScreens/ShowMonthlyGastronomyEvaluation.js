@@ -29,6 +29,10 @@ import {
   CCol,
   CRow,
 } from "@coreui/react";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function ShowMonthlyGastronomyEvaluation({ match, history }) {
   const dispatch = useDispatch();
@@ -67,13 +71,15 @@ function ShowMonthlyGastronomyEvaluation({ match, history }) {
     monthlyGastronomyEvaluation,
   } = useSelector((state) => state.monthlyEvaluationDetails);
 
-
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (hotelId) {
         dispatch(getHotelDetails(hotelId, true));
       }
@@ -96,7 +102,6 @@ function ShowMonthlyGastronomyEvaluation({ match, history }) {
       dispatch({ type: WORKER_MONTHLY_EVALUATION_DETAILS_RESET });
     };
   }, [userInfo, hotelId, dispatch, history, workerId, payTimeId, evalId]);
-
 
   return (
     <React.Fragment>

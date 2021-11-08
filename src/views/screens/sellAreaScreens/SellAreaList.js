@@ -26,6 +26,10 @@ import {
   SELL_AREA_SINCRONIZE_RESET,
   SELL_AREA_REBUILD_LIST_RESET,
 } from "src/redux/constants/sellAreaConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function SellAreaList({ match, history }) {
   const hotelId = match.params.id;
@@ -75,6 +79,9 @@ function SellAreaList({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successDelete) {
         const message = "Puntos de ventas eliminados satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));
@@ -108,7 +115,7 @@ function SellAreaList({ match, history }) {
   ]);
 
   // Remover Several Defaults Icons From Mui Datatable
-  listOptions.selectableRows = 'multiple';
+  listOptions.selectableRows = "multiple";
   listOptions.download = false;
   listOptions.print = false;
   listOptions.viewColumns = false;

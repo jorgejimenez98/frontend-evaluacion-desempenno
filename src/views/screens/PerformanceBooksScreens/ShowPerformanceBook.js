@@ -23,6 +23,10 @@ import {
   CCol,
   CRow,
 } from "@coreui/react";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function ShowPerformanceBook({ match, history }) {
   const dispatch = useDispatch();
@@ -59,6 +63,9 @@ function ShowPerformanceBook({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (hotelId) {
         dispatch(getHotelDetails(hotelId, true));
       }

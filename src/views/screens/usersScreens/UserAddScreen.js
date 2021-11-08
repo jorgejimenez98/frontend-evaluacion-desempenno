@@ -29,6 +29,10 @@ import {
 } from "./options/userValidationSchema";
 import { Message, Loader } from "src/containers/utils";
 import { USER_CREATE_RESET } from "src/redux/constants/userConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function UserAddScreen({ history }) {
   const dispatch = useDispatch();
@@ -54,6 +58,9 @@ function UserAddScreen({ history }) {
       history.push("/login");
     } else if (!userInfo.isAdmin) {
       history.push("/403");
+    }
+    if (tokenhasExpired(userInfo)) {
+      redirectLogin(history, dispatch);
     }
     if (success) {
       dispatch(

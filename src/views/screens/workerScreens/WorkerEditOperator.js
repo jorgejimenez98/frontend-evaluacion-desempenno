@@ -30,6 +30,10 @@ import {
 } from "src/redux/constants/workerConstants";
 import { FaTrash } from "react-icons/all";
 import DeleteOperatorModal from "./DeleteOperatorModal";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 const initialState = {
   descripcion: "",
@@ -83,6 +87,9 @@ function WorkerEditOperator({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successSetOperator) {
         const message = "Operador Cargado Satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));
@@ -93,7 +100,7 @@ function WorkerEditOperator({ match, history }) {
         const message = "Operador Eliminado Satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));
         dispatch({ type: OPERATOR_DELETE_RESET });
-        history.push(`/workers/${hotelId}`)
+        history.push(`/workers/${hotelId}`);
       }
       if (workerId) {
         dispatch(getWorkerDetails(workerId));

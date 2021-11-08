@@ -18,6 +18,10 @@ import {
   CATEGORY_REBUILD_LIST_RESET,
   CATEGORY_SINCRO_RESET,
 } from "src/redux/constants/categoryConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function CategoryList({ history }) {
   const dispatch = useDispatch();
@@ -53,6 +57,9 @@ function CategoryList({ history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successRebuild) {
         const message = "Lista sincronizada satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

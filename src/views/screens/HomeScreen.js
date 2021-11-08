@@ -13,6 +13,10 @@ import {
   getRangeEvaluation,
   getAnualRangeEvaluation,
 } from "src/redux/actions/dashboardActions";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 
@@ -51,6 +55,9 @@ const HomeScreen = ({ history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       dispatch(getMainNumbers());
       dispatch(getRangeEvaluation());
       dispatch(getAnualRangeEvaluation());

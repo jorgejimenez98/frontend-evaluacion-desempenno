@@ -30,6 +30,10 @@ import {
   CRow,
 } from "@coreui/react";
 import EvaluatorContent from "./options/EvaluatorContent";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function AddMonthlyGastronomyEvaluation({ match, history }) {
   const dispatch = useDispatch();
@@ -73,6 +77,9 @@ function AddMonthlyGastronomyEvaluation({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successAdd) {
         const message =
           "Evaluación Mensual de Gastronomía insertada satisfacoriamente. Se ha generado la Evaluación de Melia";

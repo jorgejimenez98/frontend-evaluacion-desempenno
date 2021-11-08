@@ -38,6 +38,10 @@ import { ANUAL_EVALUATION_ADD_RESET } from "src/redux/constants/anualEvaluationC
 import { Formik, Form } from "formik";
 import FormikErrorScroll from "formik-error-scroll";
 import NoAddErrorModal from "./options/NoAddErrorModal";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 export const initialValues = {
   resumen: "",
@@ -86,6 +90,9 @@ function AnualEvaluationAdd({ match, history }) {
     } else if (userInfo.IsFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successAdd) {
         const message = "Evaluación Anual insertada satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

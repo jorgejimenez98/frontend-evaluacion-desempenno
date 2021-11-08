@@ -37,6 +37,10 @@ import {
   CRow,
 } from "@coreui/react";
 import ErrorEditModal from "./options/ErrorEditModal";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function EditMonthlyGastronomyEvaluation({ match, history }) {
   const dispatch = useDispatch();
@@ -107,6 +111,9 @@ function EditMonthlyGastronomyEvaluation({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successEdit) {
         const message =
           "Evaluación Mensual de Gastronomía editada satisfactoriamente. Se ha actualizado la Evaluación de Melia";
@@ -178,7 +185,7 @@ function EditMonthlyGastronomyEvaluation({ match, history }) {
               evalDate={evalDate}
               differenceDays={differenceDays}
               workerName={worker?.nombreCompleto}
-              evalType={'Gastronomía'}
+              evalType={"Gastronomía"}
             />
             {loadingEdit && <Loader />}
             {errorHotel && <Message variant="danger">{errorHotel}</Message>}

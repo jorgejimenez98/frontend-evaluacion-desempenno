@@ -19,6 +19,10 @@ import {
   PAYTIMES_IMPORT_RESET,
   PAYTIMES_ZUN_LIST_RESET,
 } from "src/redux/constants/payTimesConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function ImportPayTimes({ history }) {
   const dispatch = useDispatch();
@@ -57,6 +61,9 @@ function ImportPayTimes({ history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successImport) {
         const message = "Períodos de Pago importados satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

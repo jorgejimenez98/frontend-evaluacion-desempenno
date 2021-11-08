@@ -25,6 +25,10 @@ import { Message, Loader } from "src/containers/utils";
 import { USER_UPDATE_RESET } from "src/redux/constants/userConstants";
 import { IconButton, Tooltip } from "@material-ui/core";
 import ChangeUserPasswordModal from "../editScreens/resetUserPasswordModal";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 const initialValues = {
   username: "",
@@ -73,6 +77,9 @@ function UserEditScreen({ history, match }) {
     } else if (!userInfo.isAdmin) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successUpdate) {
         dispatch(
           setSnackbar(true, "success", "Usuario editado satisfactoriamente")

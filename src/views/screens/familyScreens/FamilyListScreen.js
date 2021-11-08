@@ -23,6 +23,10 @@ import ImportButtomListHeader from "src/containers/utils/ImportButtomListHeader"
 import { setSnackbar } from "src/redux/reducers/snackbarReducer";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { FaTrash } from "react-icons/fa";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function FamilyListScreen({ history }) {
   const dispatch = useDispatch();
@@ -60,6 +64,9 @@ function FamilyListScreen({ history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successDelete) {
         const message = "Familias eliminadas satifactoriamente";
         dispatch(setSnackbar(true, "success", message));
@@ -76,11 +83,11 @@ function FamilyListScreen({ history }) {
     return () => {
       dispatch({ type: FAMILY_DELETE_RESET });
       dispatch({ type: FAMILY_SINCRONIZE_RESET });
-    }
+    };
   }, [userInfo, history, dispatch, successDelete, successSincro]);
 
   // Remover Several Defaults Icons From Mui Datatable
-  listOptions.selectableRows = 'multiple';
+  listOptions.selectableRows = "multiple";
   listOptions.download = false;
   listOptions.print = false;
   listOptions.viewColumns = false;

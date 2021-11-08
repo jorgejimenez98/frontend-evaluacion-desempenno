@@ -21,6 +21,10 @@ import {
 import { columns } from "./options/listColumns";
 import { HOTEL_DELETE_RESET } from "src/redux/constants/hotelConstants";
 import { FaTrash } from "react-icons/fa";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function HotelListScreen({ history }) {
   const dispatch = useDispatch();
@@ -46,6 +50,9 @@ function HotelListScreen({ history }) {
     } else if (!userInfo.isAdmin) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       dispatch(getHotelList(false));
     }
     if (successDelete) {
@@ -95,7 +102,7 @@ function HotelListScreen({ history }) {
   };
 
   // Remover Several Defaults Icons From Mui Datatable
-  listOptions.selectableRows = 'multiple';
+  listOptions.selectableRows = "multiple";
   listOptions.download = false;
   listOptions.print = false;
   listOptions.viewColumns = false;

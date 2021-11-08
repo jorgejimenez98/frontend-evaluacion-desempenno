@@ -26,6 +26,10 @@ import { setSnackbar } from "src/redux/reducers/snackbarReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { columns } from "./options/columns";
 import { FaTrash } from "react-icons/fa";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function UserListScreen({ history }) {
   const dispatch = useDispatch();
@@ -51,6 +55,9 @@ function UserListScreen({ history }) {
     } else if (!userInfo.isAdmin) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       dispatch(getUserList());
     }
     if (successDelete) {

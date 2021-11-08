@@ -21,6 +21,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Loader, Message } from "src/containers/utils";
 import { validationSchema } from "./options/hotelValidationSchema";
 import { HOTEL_EDIT_RESET } from "src/redux/constants/hotelConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 const initialValues = {
   name: "",
@@ -55,6 +59,9 @@ function HotelEditScreen({ history, match }) {
     } else if (!userInfo.isAdmin) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (hotelId) {
         dispatch(getHotelDetails(hotelId, false));
       }
@@ -201,7 +208,7 @@ function HotelEditScreen({ history, match }) {
                       <CInput
                         id="zunPrUnidadOrganizativaId"
                         name="zunPrUnidadOrganizativaId"
-                        placeholder={'Escribe aquí'}
+                        placeholder={"Escribe aquí"}
                         type={"number"}
                         value={formik.values.zunPrUnidadOrganizativaId}
                         invalid={

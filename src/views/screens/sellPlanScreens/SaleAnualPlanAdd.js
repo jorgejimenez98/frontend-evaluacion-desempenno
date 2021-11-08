@@ -25,6 +25,10 @@ import {
 import { ANUAL_SALE_PLAN_CREATE_RESET } from "src/redux/constants/anuaSalePlanConstants";
 import { HOTEL_DETAILS_RESET } from "src/redux/constants/hotelConstants";
 import { GET_COIN_RESET } from "src/redux/constants/coinConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function SaleAnualPlanAdd({ match, history }) {
   const hotelId = match.params.hotelId;
@@ -57,6 +61,9 @@ function SaleAnualPlanAdd({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successCreate) {
         const message = "Plan de Venta Anual creado satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

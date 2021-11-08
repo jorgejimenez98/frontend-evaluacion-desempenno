@@ -21,6 +21,10 @@ import {
   getWorkerListFromZunPR,
   importWorkerList,
 } from "src/redux/actions/workerActions";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function ImportWorkerList({ match, history }) {
   const hotelId = match.params.id;
@@ -53,6 +57,9 @@ function ImportWorkerList({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (hotelId) {
         dispatch(getHotelDetails(hotelId, true));
       }

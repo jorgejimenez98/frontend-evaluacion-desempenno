@@ -46,15 +46,19 @@ import {
 import { Formik, Form } from "formik";
 import FormikErrorScroll from "formik-error-scroll";
 import ErrorEditAnualEvalModal from "./options/ErrorEditAnualEvalModal";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 export const initialValues = {
-    resumen: "",
-    cumplimiento: "",
-    comportamiento: "",
-    usoYCuidado: "",
-    recomendaciones: "",
-    evaluacionFinal: "",
-  };
+  resumen: "",
+  cumplimiento: "",
+  comportamiento: "",
+  usoYCuidado: "",
+  recomendaciones: "",
+  evaluacionFinal: "",
+};
 
 function AnualEvaluationEdit({ match, history }) {
   const dispatch = useDispatch();
@@ -122,6 +126,9 @@ function AnualEvaluationEdit({ match, history }) {
     } else if (userInfo.IsFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successEdit) {
         const message = "Evaluación Anual editada satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

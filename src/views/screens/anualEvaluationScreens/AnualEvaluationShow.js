@@ -30,6 +30,10 @@ import {
   CLabel,
   CTextarea,
 } from "@coreui/react";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function AnualEvaluationShow({ match, history }) {
   const dispatch = useDispatch();
@@ -70,6 +74,9 @@ function AnualEvaluationShow({ match, history }) {
     } else if (userInfo.IsFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (hotelId) {
         dispatch(getHotelDetails(hotelId, true));
       }

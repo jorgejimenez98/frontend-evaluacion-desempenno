@@ -52,6 +52,10 @@ import {
   CLabel,
   CRow,
 } from "@coreui/react";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 export const initialValues = {
   month: "",
@@ -144,6 +148,9 @@ function MonthlySalePlanEdit({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successEdit) {
         const message = "Plan de Venta Mensual Editado satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

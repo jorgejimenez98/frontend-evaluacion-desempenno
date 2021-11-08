@@ -26,6 +26,10 @@ import {
 } from "./userProfileValidation";
 import ChangePasswordModal from "./ChangePasswordModal";
 import { USER_UPDATE_RESET } from "src/redux/constants/userConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function UserProfile({ history }) {
   const dispatch = useDispatch();
@@ -55,6 +59,9 @@ function UserProfile({ history }) {
       history.push("/login");
     } else {
       dispatch(getUserDetails("profile"));
+    }
+    if (tokenhasExpired(userInfo)) {
+      redirectLogin(history, dispatch);
     }
     if (successUpdate) {
       dispatch(

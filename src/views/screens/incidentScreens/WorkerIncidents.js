@@ -18,6 +18,10 @@ import { getWorkerDetails } from "src/redux/actions/workerActions";
 import { getWorkerIncidents } from "src/redux/actions/incidentActions";
 import { Message, Loader } from "src/containers/utils";
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function WorkerIncidents({ match, history }) {
   const dispatch = useDispatch();
@@ -47,6 +51,9 @@ function WorkerIncidents({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (workerId) {
         dispatch(getWorkerDetails(workerId));
       }

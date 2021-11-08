@@ -19,6 +19,10 @@ import {
   getAnualSalePlansList,
   deleteAnualPlans,
 } from "src/redux/actions/anualSalePlansActions";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function SellAnualPlanList({ match, history }) {
   const hotelId = match.params.id;
@@ -49,6 +53,9 @@ function SellAnualPlanList({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successDelete) {
         const message = "Planes de Venta Anuales eliminados satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

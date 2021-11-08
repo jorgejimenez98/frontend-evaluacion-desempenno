@@ -43,6 +43,10 @@ import { HOTEL_DETAILS_RESET } from "src/redux/constants/hotelConstants";
 import { PAYTIMES_LIST_RESET } from "src/redux/constants/payTimesConstants";
 import { WORKER_MONTHLY_EVALUATION_LIST_RESET } from "src/redux/constants/monthlyEvaluationConstants";
 import { WORKER_EVALUATOR_DETAILS_RESET } from "src/redux/constants/workerConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function MonthlyEvaluationList({ match, history }) {
   const hotelId = match.params.hotelId;
@@ -96,6 +100,9 @@ function MonthlyEvaluationList({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (hotelId) {
         dispatch(getHotelDetails(hotelId, true));
       }

@@ -21,6 +21,10 @@ import {
   SELL_AREA_UPDATE_RESET,
 } from "src/redux/constants/sellAreaConstants";
 import GoBackButtonListHeader from "src/containers/utils/GoBackButtonListHeader";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function SellAreaImport({ match, history }) {
   const hotelId = match.params.id;
@@ -54,6 +58,9 @@ function SellAreaImport({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successImport) {
         const message = "Puntos de Ventas importados satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));
@@ -71,7 +78,7 @@ function SellAreaImport({ match, history }) {
   }, [dispatch, userInfo, history, hotelId, hotelDbName, successImport]);
 
   // Remover Several Defaults Icons From Mui Datatable
-  listOptions.selectableRows = 'multiple';
+  listOptions.selectableRows = "multiple";
   listOptions.download = false;
   listOptions.print = false;
   listOptions.viewColumns = false;

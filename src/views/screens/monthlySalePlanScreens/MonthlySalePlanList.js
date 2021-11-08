@@ -28,6 +28,10 @@ import { ANUAL_SALE_PLAN_REPORT_RESET } from "src/redux/constants/anuaSalePlanCo
 import { HOTEL_DETAILS_RESET } from "src/redux/constants/hotelConstants";
 import { ArrowBack, Print } from "@material-ui/icons";
 import { CCard, CCardBody, CCardFooter } from "@coreui/react";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function MonthlySalePlanList({ match, history }) {
   const hotelId = match.params.hotelId;
@@ -79,6 +83,9 @@ function MonthlySalePlanList({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successDelete) {
         const message =
           "Planes de Venta Menuales eliminados satisfactoriamente";

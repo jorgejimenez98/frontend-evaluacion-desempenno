@@ -40,6 +40,10 @@ import {
   CRow,
 } from "@coreui/react";
 import ErrorEditModal from "../monthlyEvaluationScreens/options/ErrorEditModal";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function EditMonthlyMeliaEvaluation({ match, history }) {
   const dispatch = useDispatch();
@@ -98,9 +102,7 @@ function EditMonthlyMeliaEvaluation({ match, history }) {
 
   // Check Evaluation Date
   if (!showErrorModal && monthlyMeliaEvaluation) {
-    const evalDate = new Date(
-      monthlyMeliaEvaluation.evaluationDate
-    ).getTime();
+    const evalDate = new Date(monthlyMeliaEvaluation.evaluationDate).getTime();
     const actualDate = new Date().getTime();
     const diff = actualDate - evalDate;
     const daysDiff = parseInt(diff / (1000 * 60 * 60 * 24));
@@ -117,6 +119,9 @@ function EditMonthlyMeliaEvaluation({ match, history }) {
     } else if (userInfo.IsFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successEdit) {
         const message =
           "Evaluación Mensual de Melia editada satisfactoriamente";

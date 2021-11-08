@@ -24,6 +24,10 @@ import {
   editAnualPlan,
 } from "src/redux/actions/anualSalePlansActions";
 import { ANUAL_SALE_PLAN_EDIT_RESET } from "src/redux/constants/anuaSalePlanConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 const initialValues = {
   year: -1,
@@ -57,6 +61,9 @@ function SaleAnualPlanEdit({ match, history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successEdit) {
         const message = "Plan de Venta Anual Editado Satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));

@@ -25,6 +25,10 @@ import {
   PAYTIMES_REBUILD_RESET,
   PAYTIMES_SINCRO_RESET,
 } from "src/redux/constants/payTimesConstants";
+import {
+  redirectLogin,
+  tokenhasExpired,
+} from "src/containers/utils/userloginsettings.js";
 
 function PayTimeList({ history }) {
   const dispatch = useDispatch();
@@ -73,6 +77,9 @@ function PayTimeList({ history }) {
     } else if (!userInfo.isFoodAndDrinkBoss) {
       history.push("/403");
     } else {
+      if (tokenhasExpired(userInfo)) {
+        redirectLogin(history, dispatch);
+      }
       if (successDelete) {
         const message = "Períodos de Pago eliminados satisfactoriamente";
         dispatch(setSnackbar(true, "success", message));
