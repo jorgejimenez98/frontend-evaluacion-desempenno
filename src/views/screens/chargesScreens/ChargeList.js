@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { columns } from "./listColumns";
 import { setSnackbar } from "src/redux/reducers/snackbarReducer";
+import ReplayRoundedIcon from "@material-ui/icons/ReplayRounded";
 import {
   Loader,
   Message,
@@ -96,26 +97,28 @@ function ChargeList({ history }) {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <React.Fragment>
-          {charges?.length === 0 && (
-            <Message variant="info">
-              Por favor, presione el botón de sincronización para cargar los{" "}
-              <strong>Cargos Del Zun PR</strong>
-            </Message>
-          )}
+        charges && (
+          <React.Fragment>
+            {charges.length === 0 && (
+              <Message variant="info">
+                Por favor, presione el botón <ReplayRoundedIcon /> para sincronizar
+                los <strong>Cargos Laborales</strong> desde el Zun PR
+              </Message>
+            )}
 
-          {loadingPR && <Loader />}
-          {loadingRebuild && <Loader />}
-          {errorPR && <Message variant="danger">{errorPR}</Message>}
-          {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
+            {loadingPR && <Loader />}
+            {loadingRebuild && <Loader />}
+            {errorPR && <Message variant="danger">{errorPR}</Message>}
+            {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
 
-          <MUIDataTable
-            title={`Listado de Cargos del ZunPr (${charges?.length})`}
-            data={charges}
-            columns={columns}
-            options={listOptions}
-          />
-        </React.Fragment>
+            <MUIDataTable
+              title={`Listado de Cargos del ZunPr (${charges.length})`}
+              data={charges}
+              columns={columns}
+              options={listOptions}
+            />
+          </React.Fragment>
+        )
       )}
     </React.Fragment>
   );
