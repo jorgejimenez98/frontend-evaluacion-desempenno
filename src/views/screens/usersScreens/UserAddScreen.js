@@ -69,6 +69,10 @@ function UserAddScreen({ history }) {
       dispatch({ type: USER_CREATE_RESET });
       history.push("/users/list");
     }
+
+    return () => {
+      dispatch({ type: USER_CREATE_RESET });
+    };
   }, [userInfo, history, success, dispatch]);
 
   // Form with the initials values of the user
