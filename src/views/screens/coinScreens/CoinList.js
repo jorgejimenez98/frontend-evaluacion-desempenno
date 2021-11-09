@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { columns } from "./columns";
+import ReplayRoundedIcon from "@material-ui/icons/ReplayRounded";
 import {
   COIN_LIST_FROM_PMS_RESET,
   COIN_LIST_REBUILD_RESET,
@@ -97,19 +98,27 @@ function CoinList({ history }) {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <React.Fragment>
-          {loadingSincro && <Loader />}
-          {loadingRebuild && <Loader />}
-          {errorSincro && <Message variant="danger">{errorSincro}</Message>}
-          {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
+        coins && (
+          <React.Fragment>
+            {coins.length === 0 && (
+              <Message variant="info">
+                Por favor, presione el botón <ReplayRoundedIcon /> para sincronizar
+                la <strong>Moneda Base</strong> desde el ZUN
+              </Message>
+            )}
+            {loadingSincro && <Loader />}
+            {loadingRebuild && <Loader />}
+            {errorSincro && <Message variant="danger">{errorSincro}</Message>}
+            {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
 
-          <MUIDataTable
-            title={`Listado de Monedas (${coins?.length})`}
-            data={coins}
-            columns={columns}
-            options={listOptions}
-          />
-        </React.Fragment>
+            <MUIDataTable
+              title={`Listado de Monedas (${coins.length})`}
+              data={coins}
+              columns={columns}
+              options={listOptions}
+            />
+          </React.Fragment>
+        )
       )}
     </React.Fragment>
   );
