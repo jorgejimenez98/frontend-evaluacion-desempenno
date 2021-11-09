@@ -185,9 +185,6 @@ function MonthlyEvaluationList({ match, history }) {
 
   return (
     <React.Fragment>
-      {errorHotel && <Message variant="danger">{errorHotel}</Message>}
-      {errorEvaluator && <Message variant="danger">{errorEvaluator}</Message>}
-
       <div style={{ display: contentDisplay }}>
         <h4 className="text-center text-muted mb-3">
           Evaluación Mensual del <strong>{hotel?.name}</strong>
@@ -202,56 +199,61 @@ function MonthlyEvaluationList({ match, history }) {
               <Message variant="danger">{errorPayTime}</Message>
             ) : (
               payTimes && (
-                <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel className="mt-2">
-                      Seleccione un <strong>Período de Pago</strong>
-                    </CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                    <FormControl style={{ width: "100%" }}>
-                      <Select
-                        value={payTimeSelected}
-                        onChange={handlePayTimeChangeChange}
-                        input={<BootstrapInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <em>Seleccione un Período de Pago</em>
-                        </MenuItem>
-                        {payTimes.map((item, index) => (
-                          <MenuItem value={String(index)} key={index}>
-                            {item.year} - {item.month}
+                <React.Fragment>
+                  <CFormGroup row>
+                    <CCol md="3">
+                      <CLabel className="mt-2">
+                        Seleccione un <strong>Período de Pago</strong>
+                      </CLabel>
+                    </CCol>
+                    <CCol xs="12" md="9">
+                      <FormControl style={{ width: "100%" }}>
+                        <Select
+                          value={payTimeSelected}
+                          onChange={handlePayTimeChangeChange}
+                          input={<BootstrapInput />}
+                        >
+                          <MenuItem value="" disabled>
+                            <em>Seleccione un Período de Pago</em>
                           </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </CCol>
-                </CFormGroup>
-              )
-            )}
+                          {payTimes.map((item, index) => (
+                            <MenuItem value={String(index)} key={index}>
+                              {item.year} - {item.month}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </CCol>
+                  </CFormGroup>
 
-            {/* Monthly Evaluations */}
-            {loadingEvaluations ? (
-              <Loader />
-            ) : errorEvaluation ? (
-              <Message variant="danger">{errorEvaluation}</Message>
-            ) : (
-              <div className="mb-3">
-                <MUIDataTable
-                  title={`Listado de Evaluaciones Mensuales (${
-                    evaluations?.length === undefined
-                      ? "0"
-                      : evaluations?.length
-                  })`}
-                  data={evaluations}
-                  columns={columns}
-                  options={listOptions}
-                />
-              </div>
+                  {/* Monthly Evaluations */}
+                  {loadingEvaluations ? (
+                    <Loader />
+                  ) : errorEvaluation ? (
+                    <Message variant="danger">{errorEvaluation}</Message>
+                  ) : (
+                    <div className="mb-3">
+                      <MUIDataTable
+                        title={`Listado de Evaluaciones Mensuales (${
+                          evaluations?.length === undefined
+                            ? "0"
+                            : evaluations?.length
+                        })`}
+                        data={evaluations}
+                        columns={columns}
+                        options={listOptions}
+                      />
+                    </div>
+                  )}
+                </React.Fragment>
+              )
             )}
           </React.Fragment>
         )}
       </div>
+
+      {errorHotel && <Message variant="danger">{errorHotel}</Message>}
+      {errorEvaluator && <Message variant="danger">{errorEvaluator}</Message>}
 
       {/* Print Content */}
       <div style={{ display: printDisplay }}>
