@@ -24,7 +24,7 @@ import {
 import axios from "axios";
 import { defaultApi, hotelMeliaServerApi } from "src/publicUrl";
 
-export const getPayTimesList = () => async (dispatch, getState) => {
+export const getPayTimesList = (allow = "") => async (dispatch, getState) => {
   try {
     dispatch({
       type: PAYTIMES_LIST_REQUEST,
@@ -41,7 +41,7 @@ export const getPayTimesList = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`${defaultApi}/api/payTimes/`, config);
+    const { data } = await axios.get(`${defaultApi}/api/payTimes/${allow}`, config);
 
     dispatch({
       type: PAYTIMES_LIST_SUCCESS,
