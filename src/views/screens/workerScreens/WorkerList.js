@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import GetpAppIcon from "@material-ui/icons/GetApp";
 import { getHotelDetails } from "src/redux/actions/hotelActions";
 import { columns } from "./options/listColumns";
 import { setSnackbar } from "src/redux/reducers/snackbarReducer";
@@ -10,6 +11,7 @@ import {
   WORKER_DELETE_RESET,
   WORKER_REBUILD_RESET,
   WORKER_SINCRO_RESET,
+  WORKER_LIST_RESET,
 } from "src/redux/constants/workerConstants";
 import {
   DeleteManyItemsModal,
@@ -92,6 +94,10 @@ function WorkerList({ match, history }) {
         dispatch(getWorkerList(hotelId));
       }
     }
+
+    return () => {
+      dispatch({ type: WORKER_LIST_RESET });
+    };
   }, [
     dispatch,
     userInfo,
@@ -179,35 +185,38 @@ function WorkerList({ match, history }) {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <React.Fragment>
-          {workers?.length === 0 && (
-            <Message variant="info">
-              Por favor, importe los trabajadores desde el{" "}
-              <strong>ZunPr</strong>
-            </Message>
-          )}
+        workers && (
+          <React.Fragment>
+            {workers.length === 0 && (
+              <Message variant="info">
+                Por favor, presione el botón <GetpAppIcon /> para importar los{" "}
+                <strong>trabajadores</strong> del <strong>{hotel?.name}</strong>{" "}
+                desde el <strong>ZunPr</strong>
+              </Message>
+            )}
 
-          {loadingDelete && <Loader />}
-          {(loadingSincro || loadingRebuild) && <Loader />}
-          {errorDelete && <Message variant="danger">{errorDelete}</Message>}
-          {errorSincro && <Message variant="danger">{errorSincro}</Message>}
-          {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
+            {loadingDelete && <Loader />}
+            {(loadingSincro || loadingRebuild) && <Loader />}
+            {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+            {errorSincro && <Message variant="danger">{errorSincro}</Message>}
+            {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
 
-          <MUIDataTable
-            title={`Listado de Trabajadores del ${hotel?.name} (${workers?.length})`}
-            data={workers}
-            columns={columns}
-            options={listOptions}
-          />
+            <MUIDataTable
+              title={`Listado de Trabajadores del ${hotel?.name} (${workers.length})`}
+              data={workers}
+              columns={columns}
+              options={listOptions}
+            />
 
-          <DeleteManyItemsModal
-            showModal={showDeleteModal}
-            objectType={"Trabajador(es)"}
-            items={rowsToDelete}
-            deleteComfirmedItems={deleteComfirmedItems}
-            closeModal={closeModal}
-          />
-        </React.Fragment>
+            <DeleteManyItemsModal
+              showModal={showDeleteModal}
+              objectType={"Trabajador(es)"}
+              items={rowsToDelete}
+              deleteComfirmedItems={deleteComfirmedItems}
+              closeModal={closeModal}
+            />
+          </React.Fragment>
+        )
       )}
     </React.Fragment>
   );
