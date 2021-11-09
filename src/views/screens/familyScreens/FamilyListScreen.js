@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import GetpAppIcon from "@material-ui/icons/GetApp";
 import {
   getFamilyList,
   deleteSelectedFamilies,
@@ -158,27 +159,36 @@ function FamilyListScreen({ history }) {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <div>
-          {errorDelete && <Message variant="danger">{errorDelete}</Message>}
-          {errorSincro && <Message variant="danger">{errorSincro}</Message>}
-          {loadingDelete && <Loader />}
-          {loadingSincro && <Loader />}
+        families && (
+          <div>
+            {families.length === 0 && (
+              <Message variant="info">
+                Por favor, presione el botón <GetpAppIcon /> para importar las{" "}
+                <strong>Familias</strong> desde el ZUN PR
+              </Message>
+            )}
 
-          <MUIDataTable
-            title={`Listado de familias (${families?.length})`}
-            data={families}
-            columns={columns}
-            options={listOptions}
-          />
+            {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+            {errorSincro && <Message variant="danger">{errorSincro}</Message>}
+            {loadingDelete && <Loader />}
+            {loadingSincro && <Loader />}
 
-          <DeleteManyItemsModal
-            showModal={showDeleteModal}
-            objectType={"Familia(s)"}
-            items={rowsToDelete}
-            deleteComfirmedItems={deleteComfirmedItems}
-            closeModal={closeModal}
-          />
-        </div>
+            <MUIDataTable
+              title={`Listado de familias (${families.length})`}
+              data={families}
+              columns={columns}
+              options={listOptions}
+            />
+
+            <DeleteManyItemsModal
+              showModal={showDeleteModal}
+              objectType={"Familia(s)"}
+              items={rowsToDelete}
+              deleteComfirmedItems={deleteComfirmedItems}
+              closeModal={closeModal}
+            />
+          </div>
+        )
       )}
     </React.Fragment>
   );
