@@ -75,6 +75,7 @@ function ImportWorkerList({ match, history }) {
     }
     return () => {
       dispatch({ type: WORKER_LIST_FROM_ZUNPR_RESET });
+      dispatch({ type: WORKER_IMPORT_FROM_ZUNPR_RESET });
     };
   }, [dispatch, userInfo, history, hotelId, hotelZunPrId, successImport]);
 
