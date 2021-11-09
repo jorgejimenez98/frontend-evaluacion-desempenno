@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { columns } from "./listColumns";
 import { setSnackbar } from "src/redux/reducers/snackbarReducer";
+import ReplayRoundedIcon from "@material-ui/icons/ReplayRounded";
 import {
   Loader,
   Message,
@@ -80,7 +81,7 @@ function CategoryList({ history }) {
   listOptions.customToolbar = () => {
     return (
       <ReloadButtonListHeader
-        title="Sincronizar Cargos desde el ZunPr"
+        title="Sincronizar Categorías desde el ZunPr"
         onClick={() => {
           dispatch(sincroCategoryList());
         }}
@@ -95,26 +96,28 @@ function CategoryList({ history }) {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <React.Fragment>
-          {categories?.length === 0 && (
-            <Message variant="info">
-              Por favor, presione el botón de sincronización para cargar las{" "}
-              <strong>Categorías Ocupacionales</strong>
-            </Message>
-          )}
+        categories && (
+          <React.Fragment>
+            {categories.length === 0 && (
+              <Message variant="info">
+                Por favor, presione el botón <ReplayRoundedIcon /> para sincronizar
+                las <strong>Categorías Ocupacionales</strong> desde el ZUN
+              </Message>
+            )}
 
-          {loadingSincro && <Loader />}
-          {loadingRebuild && <Loader />}
-          {errorSincro && <Message variant="danger">{errorSincro}</Message>}
-          {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
+            {loadingSincro && <Loader />}
+            {loadingRebuild && <Loader />}
+            {errorSincro && <Message variant="danger">{errorSincro}</Message>}
+            {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
 
-          <MUIDataTable
-            title={`Listado de Categorías Ocupacionales (${categories?.length})`}
-            data={categories}
-            columns={columns}
-            options={listOptions}
-          />
-        </React.Fragment>
+            <MUIDataTable
+              title={`Listado de Categorías Ocupacionales (${categories.length})`}
+              data={categories}
+              columns={columns}
+              options={listOptions}
+            />
+          </React.Fragment>
+        )
       )}
     </React.Fragment>
   );
