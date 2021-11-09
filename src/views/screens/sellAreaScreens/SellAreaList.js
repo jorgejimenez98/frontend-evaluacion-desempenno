@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import GetpAppIcon from "@material-ui/icons/GetApp";
 import { getHotelDetails } from "src/redux/actions/hotelActions";
 import { HOTEL_DETAILS_RESET } from "src/redux/constants/hotelConstants";
 import { columns } from "./options/listColumns";
@@ -181,27 +182,37 @@ function SellAreaList({ match, history }) {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <React.Fragment>
-          {(loadingSincro || loadingRebuild || loadingDelete) && <Loader />}
-          {errorDelete && <Message variant="danger">{errorDelete}</Message>}
-          {errorSincro && <Message variant="danger">{errorSincro}</Message>}
-          {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
+        sellAreas && (
+          <React.Fragment>
+            {sellAreas.length === 0 && (
+              <Message variant="info">
+                Por favor, presione el botón <GetpAppIcon /> para importar las{" "}
+                <strong>Puntos de Ventas</strong> del hotel{" "}
+                <strong>{hotel?.name}</strong> desde el ZUN PR
+              </Message>
+            )}
 
-          <MUIDataTable
-            title={`Listado de Puntos de Ventas del ${hotel?.name} (${sellAreas?.length})`}
-            data={sellAreas}
-            columns={columns}
-            options={listOptions}
-          />
+            {(loadingSincro || loadingRebuild || loadingDelete) && <Loader />}
+            {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+            {errorSincro && <Message variant="danger">{errorSincro}</Message>}
+            {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
 
-          <DeleteManyItemsModal
-            showModal={showDeleteModal}
-            objectType={"Punto de venta(s)"}
-            items={rowsToDelete}
-            deleteComfirmedItems={deleteComfirmedItems}
-            closeModal={closeModal}
-          />
-        </React.Fragment>
+            <MUIDataTable
+              title={`Listado de Puntos de Ventas del ${hotel?.name} (${sellAreas.length})`}
+              data={sellAreas}
+              columns={columns}
+              options={listOptions}
+            />
+
+            <DeleteManyItemsModal
+              showModal={showDeleteModal}
+              objectType={"Punto de venta(s)"}
+              items={rowsToDelete}
+              deleteComfirmedItems={deleteComfirmedItems}
+              closeModal={closeModal}
+            />
+          </React.Fragment>
+        )
       )}
     </React.Fragment>
   );
