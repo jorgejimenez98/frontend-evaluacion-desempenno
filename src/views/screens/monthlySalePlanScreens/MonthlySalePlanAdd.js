@@ -156,206 +156,235 @@ function MonthlySalePlanAdd({ match, history }) {
 
   return (
     <React.Fragment>
-      {loadingCreate && <Loader />}
-      {errorHotel && <Message variant="danger">{errorHotel}</Message>}
-      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
-      {errorAnualSale && <Message variant="danger">{errorAnualSale}</Message>}
-      {errorFamily && <Message variant="danger">{errorFamily}</Message>}
-      {errorArea && <Message variant="danger">{errorArea}</Message>}
+      {sellAreas?.length === 0 ? (
+        <Message variant="info">
+          Por favor, asegúrese de tener los <strong>Puntos de Ventas</strong>{" "}
+          del <strong>{hotel?.name}</strong> importados desde el ZUN
+        </Message>
+      ) : families?.length === 0 ? (
+        <Message variant="info">
+          Por favor, asegúrese de tener las <strong>Familias</strong> del{" "}
+          <strong>{hotel?.name}</strong> importados desde el ZUN
+        </Message>
+      ) : (
+        <React.Fragment>
+          {loadingCreate && <Loader />}
+          {errorHotel && <Message variant="danger">{errorHotel}</Message>}
+          {errorCreate && <Message variant="danger">{errorCreate}</Message>}
+          {errorAnualSale && (
+            <Message variant="danger">{errorAnualSale}</Message>
+          )}
+          {errorFamily && <Message variant="danger">{errorFamily}</Message>}
+          {errorArea && <Message variant="danger">{errorArea}</Message>}
 
-      <CCard className="shadow">
-        <CCardHeader>
-          <CRow>
-            <CCol xs="12" sm="8" md="10">
-              <h4 className="text-muted">
-                <FaDollarSign /> Insertar Plan de Venta Mensual para el{" "}
-                <strong>{hotel?.name}</strong> del año{" "}
-                <strong>{anualSalePlan?.year}</strong>
-              </h4>
-            </CCol>
-            <CCol xs="12" sm="4" md="2">
-              <div className="card-header-actions">
-                <Tooltip title="Restear Formulario">
-                  <IconButton
-                    onClick={() => {
-                      formik.resetForm();
-                      dispatch(
-                        setSnackbar(true, "info", "Formulario Reseteado")
-                      );
-                    }}
-                  >
-                    <RotateLeftIcon />
-                  </IconButton>
-                </Tooltip>
-                <GoBackButtonListHeader
-                  title={`Volver al Listado de los planes de Venta Mensuales del ${hotel?.name}`}
-                  link={`/monthlySalePlan/${hotelId}/list/${anualSalePlanId}`}
-                />
-              </div>
-            </CCol>
-          </CRow>
-        </CCardHeader>
+          <CCard className="shadow">
+            <CCardHeader>
+              <CRow>
+                <CCol xs="12" sm="8" md="10">
+                  <h4 className="text-muted">
+                    <FaDollarSign /> Insertar Plan de Venta Mensual para el{" "}
+                    <strong>{hotel?.name}</strong> del año{" "}
+                    <strong>{anualSalePlan?.year}</strong>
+                  </h4>
+                </CCol>
+                <CCol xs="12" sm="4" md="2">
+                  <div className="card-header-actions">
+                    <Tooltip title="Restear Formulario">
+                      <IconButton
+                        onClick={() => {
+                          formik.resetForm();
+                          dispatch(
+                            setSnackbar(true, "info", "Formulario Reseteado")
+                          );
+                        }}
+                      >
+                        <RotateLeftIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <GoBackButtonListHeader
+                      title={`Volver al Listado de los planes de Venta Mensuales del ${hotel?.name}`}
+                      link={`/monthlySalePlan/${hotelId}/list/${anualSalePlanId}`}
+                    />
+                  </div>
+                </CCol>
+              </CRow>
+            </CCardHeader>
 
-        <form onSubmit={formik.handleSubmit} className="m-3">
-          <CCardBody>
-            {/* MEs */}
-            <CFormGroup row>
-              <CCol md="3">
-                <CLabel>Mes</CLabel>
-              </CCol>
-              <CCol xs="12" md="9">
-                <FormControl style={{ width: "100%" }}>
-                  <Select
-                    id="month"
-                    name="month"
-                    displayEmpty
-                    value={formik.values.month}
-                    onChange={formik.handleChange}
-                    input={<BootstrapInput />}
-                  >
-                    <MenuItem value="" disabled>
-                      <em>Seleccione un Mes</em>
-                    </MenuItem>
-                    <MenuItem value={"Enero"}>Enero</MenuItem>
-                    <MenuItem value={"Febrero"}>Febrero</MenuItem>
-                    <MenuItem value={"Marzo"}>Marzo</MenuItem>
-                    <MenuItem value={"Abril"}>Abril</MenuItem>
-                    <MenuItem value={"Mayo"}>Mayo</MenuItem>
-                    <MenuItem value={"Junio"}>Junio</MenuItem>
-                    <MenuItem value={"Julio"}>Julio</MenuItem>
-                    <MenuItem value={"Agosto"}>Agosto</MenuItem>
-                    <MenuItem value={"Septiembre"}>Septiembre</MenuItem>
-                    <MenuItem value={"Octubre"}>Octubre</MenuItem>
-                    <MenuItem value={"Noviembre"}>Noviembre</MenuItem>
-                    <MenuItem value={"Diciembre"}>Diciembre</MenuItem>
-                  </Select>
-                </FormControl>
-
-                {Boolean(formik.touched.month) &&
-                  Boolean(formik.errors.month) && (
-                    <small className="text-red">{formik.errors.month}</small>
-                  )}
-              </CCol>
-            </CFormGroup>
-
-            {/* Familia */}
-            <CFormGroup row>
-              <CCol md="3">
-                <CLabel>Familia</CLabel>
-              </CCol>
-              <CCol xs="12" md="9">
-                {loadingFamilies ? (
-                  <Loader />
-                ) : (
-                  families && (
+            <form onSubmit={formik.handleSubmit} className="m-3">
+              <CCardBody>
+                {/* MEs */}
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel>Mes</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
                     <FormControl style={{ width: "100%" }}>
                       <Select
-                        id="family"
-                        name="family"
+                        id="month"
+                        name="month"
                         displayEmpty
-                        value={formik.values.family}
+                        value={formik.values.month}
                         onChange={formik.handleChange}
                         input={<BootstrapInput />}
                       >
                         <MenuItem value="" disabled>
-                          <em>Seleccione una Familia</em>
+                          <em>Seleccione un Mes</em>
                         </MenuItem>
-                        {families.map((item, index) => (
-                          <MenuItem value={String(item.id_grupo)} key={index}>
-                            {item.desc_grupo}
-                          </MenuItem>
-                        ))}
+                        <MenuItem value={"Enero"}>Enero</MenuItem>
+                        <MenuItem value={"Febrero"}>Febrero</MenuItem>
+                        <MenuItem value={"Marzo"}>Marzo</MenuItem>
+                        <MenuItem value={"Abril"}>Abril</MenuItem>
+                        <MenuItem value={"Mayo"}>Mayo</MenuItem>
+                        <MenuItem value={"Junio"}>Junio</MenuItem>
+                        <MenuItem value={"Julio"}>Julio</MenuItem>
+                        <MenuItem value={"Agosto"}>Agosto</MenuItem>
+                        <MenuItem value={"Septiembre"}>Septiembre</MenuItem>
+                        <MenuItem value={"Octubre"}>Octubre</MenuItem>
+                        <MenuItem value={"Noviembre"}>Noviembre</MenuItem>
+                        <MenuItem value={"Diciembre"}>Diciembre</MenuItem>
                       </Select>
                     </FormControl>
-                  )
-                )}
-                {Boolean(formik.touched.family) &&
-                  Boolean(formik.errors.family) && (
-                    <small className="text-red">{formik.errors.family}</small>
-                  )}
-              </CCol>
-            </CFormGroup>
 
-            {/* AREA */}
-            <CFormGroup row>
-              <CCol md="3">
-                <CLabel>Punto de Venta</CLabel>
-              </CCol>
-              <CCol xs="12" md="9">
-                {loadingAreas ? (
-                  <Loader />
-                ) : (
-                  sellAreas && (
-                    <FormControl style={{ width: "100%" }}>
-                      <Select
-                        id="saleArea"
-                        name="saleArea"
-                        placeholder="Seleccione un Punto de Venta"
-                        displayEmpty
-                        value={formik.values.saleArea}
-                        onChange={formik.handleChange}
-                        input={<BootstrapInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <em>Seleccione un Punto de Venta</em>
-                        </MenuItem>
-                        {sellAreas.map((item, index) => (
-                          <MenuItem value={String(item.id_pvta)} key={index}>
-                            {item.desc_pvta}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  )
-                )}
-                {formik.touched.saleArea && Boolean(formik.errors.saleArea) && (
-                  <small className="text-red">{formik.errors.saleArea}</small>
-                )}
-              </CCol>
-            </CFormGroup>
+                    {Boolean(formik.touched.month) &&
+                      Boolean(formik.errors.month) && (
+                        <small className="text-red">
+                          {formik.errors.month}
+                        </small>
+                      )}
+                  </CCol>
+                </CFormGroup>
 
-            {/* Plan */}
-            <CFormGroup row>
-              <CCol md="3">
-                <CLabel>Plan de Venta</CLabel>
-              </CCol>
-              <CCol xs="12" md="9">
-                <CInput
-                  id="plan"
-                  name="plan"
-                  placeholder={"Escribe aquí el plan"}
-                  type={"number"}
-                  value={formik.values.plan}
-                  onChange={formik.handleChange}
-                />
-                {formik.touched.plan && Boolean(formik.errors.plan) && (
-                  <small className="text-red">{formik.errors.plan}</small>
-                )}
-              </CCol>
-            </CFormGroup>
-          </CCardBody>
+                {/* Familia */}
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel>Familia</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    {loadingFamilies ? (
+                      <Loader />
+                    ) : (
+                      families && (
+                        <FormControl style={{ width: "100%" }}>
+                          <Select
+                            id="family"
+                            name="family"
+                            displayEmpty
+                            value={formik.values.family}
+                            onChange={formik.handleChange}
+                            input={<BootstrapInput />}
+                          >
+                            <MenuItem value="" disabled>
+                              <em>Seleccione una Familia</em>
+                            </MenuItem>
+                            {families.map((item, index) => (
+                              <MenuItem
+                                value={String(item.id_grupo)}
+                                key={index}
+                              >
+                                {item.desc_grupo}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      )
+                    )}
+                    {Boolean(formik.touched.family) &&
+                      Boolean(formik.errors.family) && (
+                        <small className="text-red">
+                          {formik.errors.family}
+                        </small>
+                      )}
+                  </CCol>
+                </CFormGroup>
 
-          <CCardFooter>
-            <div className="float-right">
-              <LinkContainer
-                to={`/monthlySalePlan/${hotelId}/list/${anualSalePlanId}`}
-              >
-                <CButton
-                  variant="outline"
-                  color="light"
-                  type="button"
-                  className="text-black-50"
-                >
-                  <CIcon name="cil-x" /> Cancelar
-                </CButton>
-              </LinkContainer>
-              <CButton color="success" type="submit" className="ml-2">
-                <CIcon name="cil-scrubber" /> Insertar
-              </CButton>
-            </div>
-          </CCardFooter>
-        </form>
-      </CCard>
+                {/* AREA */}
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel>Punto de Venta</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    {loadingAreas ? (
+                      <Loader />
+                    ) : (
+                      sellAreas && (
+                        <FormControl style={{ width: "100%" }}>
+                          <Select
+                            id="saleArea"
+                            name="saleArea"
+                            placeholder="Seleccione un Punto de Venta"
+                            displayEmpty
+                            value={formik.values.saleArea}
+                            onChange={formik.handleChange}
+                            input={<BootstrapInput />}
+                          >
+                            <MenuItem value="" disabled>
+                              <em>Seleccione un Punto de Venta</em>
+                            </MenuItem>
+                            {sellAreas.map((item, index) => (
+                              <MenuItem
+                                value={String(item.id_pvta)}
+                                key={index}
+                              >
+                                {item.desc_pvta}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      )
+                    )}
+                    {formik.touched.saleArea &&
+                      Boolean(formik.errors.saleArea) && (
+                        <small className="text-red">
+                          {formik.errors.saleArea}
+                        </small>
+                      )}
+                  </CCol>
+                </CFormGroup>
+
+                {/* Plan */}
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel>Plan de Venta</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CInput
+                      id="plan"
+                      name="plan"
+                      placeholder={"Escribe aquí el plan"}
+                      type={"number"}
+                      value={formik.values.plan}
+                      onChange={formik.handleChange}
+                    />
+                    {formik.touched.plan && Boolean(formik.errors.plan) && (
+                      <small className="text-red">{formik.errors.plan}</small>
+                    )}
+                  </CCol>
+                </CFormGroup>
+              </CCardBody>
+
+              <CCardFooter>
+                <div className="float-right">
+                  <LinkContainer
+                    to={`/monthlySalePlan/${hotelId}/list/${anualSalePlanId}`}
+                  >
+                    <CButton
+                      variant="outline"
+                      color="light"
+                      type="button"
+                      className="text-black-50"
+                    >
+                      <CIcon name="cil-x" /> Cancelar
+                    </CButton>
+                  </LinkContainer>
+                  <CButton color="success" type="submit" className="ml-2">
+                    <CIcon name="cil-scrubber" /> Insertar
+                  </CButton>
+                </div>
+              </CCardFooter>
+            </form>
+          </CCard>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 }
