@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IconButton, Tooltip } from "@material-ui/core";
+import GetpAppIcon from "@material-ui/icons/GetApp";
 import { FaTrash } from "react-icons/fa";
 import ImportButtomListHeader from "src/containers/utils/ImportButtomListHeader";
 import { columns } from "./listColumns";
@@ -90,7 +91,7 @@ function PayTimeList({ history }) {
         dispatch(setSnackbar(true, "success", message));
         dispatch({ type: PAYTIMES_REBUILD_RESET });
       }
-      dispatch(getPayTimesList());
+      dispatch(getPayTimesList(`?allow=${true}`));
     }
     return () => {
       dispatch({ type: PAYTIMES_LIST_RESET });
@@ -178,28 +179,37 @@ function PayTimeList({ history }) {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <div>
-          {(loadingDelete || loadingRebuild) && <Loader />}
-          {loadingSincro && <Loader />}
-          {errorDelete && <Message variant="danger">{errorDelete}</Message>}
-          {errorSincro && <Message variant="danger">{errorSincro}</Message>}
-          {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
+        payTimes && (
+          <div>
+            {payTimes.length === 0 && (
+              <Message variant="info">
+                Por favor, presione el botón <GetpAppIcon /> para importar los{" "}
+                <strong>Períodos de Pago</strong> desde el ZUN PR
+              </Message>
+            )}
 
-          <MUIDataTable
-            title={`Listado de Períodos de Pago (${payTimes?.length})`}
-            data={payTimes}
-            columns={columns}
-            options={listOptions}
-          />
+            {(loadingDelete || loadingRebuild) && <Loader />}
+            {loadingSincro && <Loader />}
+            {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+            {errorSincro && <Message variant="danger">{errorSincro}</Message>}
+            {errorRebuild && <Message variant="danger">{errorRebuild}</Message>}
 
-          <DeleteManyItemsModal
-            showModal={showDeleteModal}
-            objectType={"Períodos de Pago"}
-            items={rowsToDelete}
-            deleteComfirmedItems={deleteComfirmedItems}
-            closeModal={closeModal}
-          />
-        </div>
+            <MUIDataTable
+              title={`Listado de Períodos de Pago (${payTimes.length})`}
+              data={payTimes}
+              columns={columns}
+              options={listOptions}
+            />
+
+            <DeleteManyItemsModal
+              showModal={showDeleteModal}
+              objectType={"Períodos de Pago"}
+              items={rowsToDelete}
+              deleteComfirmedItems={deleteComfirmedItems}
+              closeModal={closeModal}
+            />
+          </div>
+        )
       )}
     </React.Fragment>
   );
