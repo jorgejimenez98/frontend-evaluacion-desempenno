@@ -13,9 +13,11 @@ import {
   Select,
   FormControl,
   MenuItem,
+  Tooltip,
+  IconButton,
 } from "@material-ui/core";
 import { LinkContainer } from "react-router-bootstrap";
-import { Cancel } from "@material-ui/icons";
+import { Cancel, RotateLeft } from "@material-ui/icons";
 import { BiUpload } from "react-icons/all";
 import {
   CCol,
@@ -42,6 +44,7 @@ import {
   redirectLogin,
   tokenhasExpired,
 } from "src/containers/utils/userloginsettings.js";
+import { detaultTexts } from "./options/defaultText";
 
 export const initialValues = {
   resumen: "",
@@ -59,6 +62,7 @@ function AnualEvaluationAdd({ match, history }) {
   const year = match.params.year;
 
   const [showAddError, setShowAddError] = useState(false);
+  const [showDefaultButtom, setShowDefaultButtom] = useState(true);
 
   // User login Selector
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -110,12 +114,31 @@ function AnualEvaluationAdd({ match, history }) {
       dispatch({ type: WORKER_DETAILS_RESET });
       dispatch({ type: HOTEL_DETAILS_RESET });
       dispatch({ type: ANUAL_EVALUATION_ADD_RESET });
+      resetForm();
     };
   }, [userInfo, hotelId, dispatch, history, workerId, successAdd]);
 
   const closeModal = () => {
     setShowAddError(false);
     history.push(`/evaluations/anual/${hotelId}`);
+  };
+
+  const handleDefaultText = () => {
+    setShowDefaultButtom(false);
+    const texts = detaultTexts(year);
+    initialValues.resumen = texts.resumenValorativo;
+    initialValues.cumplimiento = texts.cumplimentoObjetivos;
+    initialValues.comportamiento = texts.comportamiento;
+    initialValues.usoYCuidado = texts.usoYCuidado;
+    initialValues.recomendaciones = texts.recomendaciones;
+  };
+
+  const resetForm = () => {
+    initialValues.resumen = "";
+    initialValues.cumplimiento = "";
+    initialValues.comportamiento = "";
+    initialValues.usoYCuidado = "";
+    initialValues.recomendaciones = "";
   };
 
   return (
@@ -168,6 +191,15 @@ function AnualEvaluationAdd({ match, history }) {
         </CCardBody>
       </CCard>
 
+      {/* Default Buttom */}
+      {showDefaultButtom && (
+        <div className="text-center mb-3">
+          <Button variant="contained" onClick={handleDefaultText}>
+            Definir Textos por defecto
+          </Button>
+        </div>
+      )}
+
       {/* Indocadores */}
       <Formik
         initialValues={initialValues}
@@ -187,8 +219,25 @@ function AnualEvaluationAdd({ match, history }) {
             <CCard className="shadow">
               <CCardHeader>
                 <CRow>
-                  <CCol xs="12" sm="8" md="8">
-                    <h4 className="text-muted">Indicadores a Evaluar</h4>
+                  <CCol xs="12" sm="8" md="10">
+                    <h4 className="text-muted mt-2">Indicadores a Evaluar</h4>
+                  </CCol>
+                  <CCol xs="12" sm="4" md="2">
+                    <div className="card-header-actions">
+                      <Tooltip title="Restear Formulario">
+                        <IconButton
+                          onClick={() => {
+                            resetForm();
+                            setShowDefaultButtom(true);
+                            dispatch(
+                              setSnackbar(true, "info", "Formulario Reseteado")
+                            );
+                          }}
+                        >
+                          <RotateLeft />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
                   </CCol>
                 </CRow>
               </CCardHeader>
