@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setSnackbar } from "src/redux/reducers/snackbarReducer";
 import { Message } from "src/containers/utils/index";
 import MobileStepper from "@material-ui/core/MobileStepper";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
@@ -31,12 +33,14 @@ function FormEvaluation({
   monthlyGastronomyEvaluation,
   canPrint,
 }) {
+  const dispatch = useDispatch();
   const maxSteps = 25;
   const [activeStep, setActiveStep] = useState(0);
   const [actualEvaluation, setActualEvaluation] = useState("");
   const [evaluatedSteps, setEvaluatedSteps] = useState([]);
   const [actualVariant, setActualVariant] = useState("info");
   const [showSelectError, setShowSelectError] = useState(false);
+  const [showDefaultEvaluation, setShowDefaultEvaluation] = useState(true);
   const [index1, setIndex1] = useState("");
   const [index2, setIndex2] = useState("");
   const [index3, setIndex3] = useState("");
@@ -249,6 +253,108 @@ function FormEvaluation({
     setActualEvaluation(`${average} - ${finalEval}`);
   };
 
+  const handleDefaultEval = () => {
+    setShowDefaultEvaluation(false);
+
+    setIndex1(`1|4|B`);
+    setIndex2(`2|4|B`);
+    setIndex3(`3|4|B`);
+    setIndex4(`4|4|B`);
+    setIndex5(`5|4|B`);
+    setIndex6(`6|4|B`);
+    setIndex7(`7|4|B`);
+    setIndex8(`8|4|B`);
+    setIndex9(`9|4|B`);
+    setIndex10(`10|4|B`);
+    setIndex11(`11|4|B`);
+    setIndex12(`12|4|B`);
+    setIndex13(`13|4|B`);
+    setIndex14(`14|4|B`);
+    setIndex15(`15|4|B`);
+    setIndex16(`16|4|B`);
+    setIndex17(`17|4|B`);
+    setIndex18(`18|4|B`);
+    setIndex19(`19|4|B`);
+    setIndex20(`20|4|B`);
+    setIndex21(`21|4|B`);
+    setIndex22(`22|4|B`);
+    setIndex23(`23|4|B`);
+    setIndex24(`24|4|B`);
+    setIndex25(`25|4|B`);
+
+    const arrayValues = [
+      `1|4|B`,
+      `2|4|B`,
+      `3|4|B`,
+      `4|4|B`,
+      `5|4|B`,
+      `6|4|B`,
+      `7|4|B`,
+      `8|4|B`,
+      `9|4|B`,
+      `10|4|B`,
+      `11|4|B`,
+      `12|4|B`,
+      `13|4|B`,
+      `14|4|B`,
+      `15|4|B`,
+      `16|4|B`,
+      `17|4|B`,
+      `18|4|B`,
+      `19|4|B`,
+      `20|4|B`,
+      `21|4|B`,
+      `22|4|B`,
+      `23|4|B`,
+      `24|4|B`,
+      `25|4|B`,
+    ];
+
+    arrayValues.forEach((value) => {
+      const split = value.split("|");
+      let newEvaluatedSteps = evaluatedSteps;
+      let exist1 = false;
+      newEvaluatedSteps.forEach((item, i) => {
+        if (i === Number(split[0]) - 1) {
+          exist1 = true;
+          item.points = Number(split[1]);
+          item.index = Number(split[0]);
+          item.eval = split[2];
+        }
+      });
+      if (!exist1) {
+        newEvaluatedSteps.push({
+          points: Number(split[1]),
+          index: Number(split[0]),
+          eval: split[2],
+        });
+      }
+      setEvaluatedSteps(newEvaluatedSteps);
+      steps[Number(split[0]) - 1].points = `${Number(split[1])} - ${split[2]}`;
+      steps[Number(split[0]) - 1].badgeType = getBadgeVariant(split[2]);
+
+      const evalSteps = evaluatedSteps.length;
+      let count = 0;
+      evaluatedSteps.forEach((item) => (count += item.points));
+      const average = (count / evalSteps).toFixed(2);
+      let finalEval =
+        average <= 2
+          ? "B"
+          : average > 2 && average <= 3
+          ? "R"
+          : average > 3 && average <= 4
+          ? "B"
+          : "MB";
+      setActualVariant(getBadgeVariant(finalEval));
+      setActualEvaluation(`${average} - ${finalEval}`);
+    });
+
+    setActiveStep(24);
+    const message =
+      "Evaluación establecida con B por defecto. Confirme los datos";
+    dispatch(setSnackbar(true, "info", message));
+  };
+
   return (
     <React.Fragment>
       <h4 className="text-center text-muted mb-3">
@@ -259,6 +365,19 @@ function FormEvaluation({
           <CBadge color={actualVariant}>{actualEvaluation}</CBadge>
         )}
       </h4>
+
+      {showDefaultEvaluation && (
+        <div className="text-center mb-3">
+          <Button variant="contained" onClick={handleDefaultEval}>
+            Definir Evaluación por defecto de{" "}
+            <h5>
+              <CBadge color="info" className="ml-2 mt-1">
+                B
+              </CBadge>
+            </h5>
+          </Button>
+        </div>
+      )}
 
       <CCard className="shadow">
         <CCardHeader>{getSteps()[activeStep]}</CCardHeader>
@@ -1490,7 +1609,7 @@ function FormEvaluation({
                       value={"16|3|R"}
                       control={<Radio />}
                       label={
-                        "En ocasiones no se muestra amabe y cortés con os clientes."
+                        "En ocasiones no se muestra amabe y cortés con los clientes."
                       }
                     />
                   </div>
