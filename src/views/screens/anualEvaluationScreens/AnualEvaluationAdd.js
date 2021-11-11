@@ -116,6 +116,7 @@ function AnualEvaluationAdd({ match, history }) {
       dispatch({ type: ANUAL_EVALUATION_ADD_RESET });
       resetForm();
     };
+    // eslint-disable-next-line
   }, [userInfo, hotelId, dispatch, history, workerId, successAdd]);
 
   const closeModal = () => {
@@ -131,6 +132,13 @@ function AnualEvaluationAdd({ match, history }) {
     initialValues.comportamiento = texts.comportamiento;
     initialValues.usoYCuidado = texts.usoYCuidado;
     initialValues.recomendaciones = texts.recomendaciones;
+    const message =
+      "Se han establecido los textos por defecto. Inserte la Evaluación Final";
+    dispatch(setSnackbar(true, "info", message));
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
   const resetForm = () => {
@@ -139,6 +147,8 @@ function AnualEvaluationAdd({ match, history }) {
     initialValues.comportamiento = "";
     initialValues.usoYCuidado = "";
     initialValues.recomendaciones = "";
+    const message = "Formulario Reseteado";
+    dispatch(setSnackbar(true, "info", message));
   };
 
   return (
