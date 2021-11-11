@@ -168,7 +168,7 @@ export const stepContent = [
     // 16
     label1: "No es amable y cortés con el cliente",
     value1: "16|2|M",
-    label2: "En ocasiones no se muestra amabe y cortés con os clientes",
+    label2: "En ocasiones no se muestra amabe y cortés con los clientes",
     value2: "16|3|R",
     label3: "Atiende a los clientes con amabilidad y cortesía",
     value3: "16|4|B",
