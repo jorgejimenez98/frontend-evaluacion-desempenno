@@ -366,7 +366,7 @@ function FormEvaluation({
         )}
       </h4>
 
-      {showDefaultEvaluation && (
+      {!canPrint && showDefaultEvaluation && (
         <div className="text-center mb-3">
           <Button variant="contained" onClick={handleDefaultEval}>
             Definir Evaluación por defecto de{" "}
