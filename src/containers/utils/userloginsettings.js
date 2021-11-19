@@ -2,19 +2,22 @@ import { USER_LOGIN_FAIL } from "src/redux/constants/userConstants";
 
 export const tokenhasExpired = (userInfo) => {
   var expire = false;
-  var token = userInfo.token;
-  var tokenArray = token.split(".");
-  var jwt = JSON.parse(atob(tokenArray[1]));
-  if (jwt && jwt.exp && Number.isFinite(jwt.exp)) {
-    expire = jwt.exp * 1000;
-  } else {
-    expire = false;
-  }
+  if (userInfo) {
+    var token = userInfo.token;
+    var tokenArray = token.split(".");
+    var jwt = JSON.parse(atob(tokenArray[1]));
+    if (jwt && jwt.exp && Number.isFinite(jwt.exp)) {
+      expire = jwt.exp * 1000;
+    } else {
+      expire = false;
+    }
 
-  if (!expire) {
-    return false;
+    if (!expire) {
+      return false;
+    }
+    return Date.now() > expire;
   }
-  return Date.now() > expire;
+  return false;
 };
 
 export const redirectLogin = (history, dispatch) => {
