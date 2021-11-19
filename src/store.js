@@ -141,6 +141,7 @@ import {
   numbersReducers,
   evaluationRangeReducer,
   evaluationAnualRangeReducer,
+  evaluationTableReducer,
 } from "src/redux/reducers/dashboardReducers";
 
 // Obtain the authenticated user from localstorage
@@ -268,6 +269,7 @@ const reducers = combineReducers({
   numbers: numbersReducers,
   evaluationRange: evaluationRangeReducer,
   evaluationAnualRange: evaluationAnualRangeReducer,
+  evaluationTable: evaluationTableReducer,
 });
 
 const middleware = [thunk];
