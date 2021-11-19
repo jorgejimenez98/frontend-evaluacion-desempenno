@@ -95,20 +95,23 @@ export const evaluationAnualRangeReducer = (
   }
 };
 
-export const evaluationTableReducer = (state = { evaluations: [] }, action) => {
+export const evaluationTableReducer = (
+  state = { evaluations: [], payTimes: {} },
+  action
+) => {
   switch (action.type) {
     case TABLE_EVALUAIIONS.GET:
       return { loading: true };
 
     case TABLE_EVALUAIIONS.SUCCESS:
       const data = action.payload;
-      return { evaluations: data };
+      return { evaluations: data.data, payTimes: data.payTimes };
 
     case TABLE_EVALUAIIONS.ERROR:
       return { loading: false, error: action.payload };
 
     case TABLE_EVALUAIIONS.RESET:
-      return { evaluations: [] };
+      return { evaluations: [], payTimes: {} };
 
     default:
       return state;
