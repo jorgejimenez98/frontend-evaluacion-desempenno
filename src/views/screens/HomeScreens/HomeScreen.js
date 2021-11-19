@@ -59,6 +59,7 @@ const HomeScreen = ({ history }) => {
     loading: loadingTable,
     error: errorTable,
     evaluations: evaluationsTable,
+    payTimes: lastPaytimes,
   } = useSelector((state) => state.evaluationTable);
 
   useEffect(() => {
@@ -181,7 +182,9 @@ const HomeScreen = ({ history }) => {
           ) : errorTable ? (
             <Message variant="danger">{errorTable}</Message>
           ) : (
-            evaluationsTable && <TableEvalInfo table={evaluationsTable} />
+            evaluationsTable && (
+              <TableEvalInfo table={evaluationsTable} paytimes={lastPaytimes} />
+            )
           )}
         </React.Fragment>
       )}
