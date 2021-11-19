@@ -18,7 +18,7 @@ import {
   tokenhasExpired,
 } from "src/containers/utils/userloginsettings.js";
 
-const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
+const WidgetsDropdown = lazy(() => import("../../widgets/WidgetsDropdown.js"));
 
 const HomeScreen = ({ history }) => {
   const dispatch = useDispatch();
