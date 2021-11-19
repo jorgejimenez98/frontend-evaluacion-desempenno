@@ -4,17 +4,16 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-export default function CardEval() {
+export default function CardEval({ paytime, title }) {
   return (
-    <Card className="mt-4">
+    <Card className="mt-4 shadow">
       <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
+        <CardContent className="text-center">
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {title} de evaluación
+          </Typography>
+          <Typography gutterBottom variant="h5" component="h2">
+            {paytime !== null ? paytime: "No registrado"}
           </Typography>
         </CardContent>
       </CardActionArea>
