@@ -1,9 +1,9 @@
 import React from "react";
 import { listOptions, MUIDataTable } from "src/containers/utils/index";
 import { columns } from "./options/columns";
-import LastEvalCards from './options/LastEvalCards'
+import LastEvalCards from "./options/LastEvalCards";
 
-function TableEvalInfo({ table }) {
+function TableEvalInfo({ table, paytimes }) {
   // Remover Several Defaults Icons From Mui Datatable
   listOptions.selectableRows = "none";
   listOptions.download = false;
@@ -18,7 +18,7 @@ function TableEvalInfo({ table }) {
 
   return (
     <div className="mb-3">
-      <LastEvalCards />
+      <LastEvalCards paytimes={paytimes} />
       <MUIDataTable
         title={`Listado de Evaluaciones (${table.length})`}
         data={table}
