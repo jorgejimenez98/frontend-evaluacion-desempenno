@@ -2,6 +2,7 @@ import {
   NUMBERS,
   RANGE_EVALUATION,
   ANUAL_EVALUATION,
+  TABLE_EVALUAIIONS,
 } from "../constants/dashboardConstants";
 
 import axios from "axios";
@@ -110,6 +111,43 @@ export const getAnualRangeEvaluation = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ANUAL_EVALUATION.EVALUATIONS_RANGE_ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const getTableEval = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TABLE_EVALUAIIONS.GET,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${defaultApi}/api/getTableEvaluations/`,
+      config
+    );
+
+    dispatch({
+      type: TABLE_EVALUAIIONS.SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: TABLE_EVALUAIIONS.ERROR,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
