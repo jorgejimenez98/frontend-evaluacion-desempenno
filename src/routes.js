@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HomeScreen = React.lazy(() => import('./views/screens/HomeScreen'));
+const HomeScreen = React.lazy(() => import('./views/screens/HomeScreens/HomeScreen'));
 
 // Users Components
 const UserListScreen = React.lazy(() => import('./views/screens/usersScreens/UserListScreen'));
