@@ -6,7 +6,7 @@ export const columns = [
     label: "Nombre Completo",
     options: {
       filter: true,
-      sort: true,
+      sort: false,
       filterType: "dropdown",
       customBodyRender: (value, tableMeta) => {
         return <strong>{value}</strong>;
@@ -18,7 +18,7 @@ export const columns = [
     label: "Hotel",
     options: {
       filter: true,
-      sort: true,
+      sort: false,
       filterType: "dropdown",
       customBodyRender: (value, tableMeta) => {
         return (
@@ -40,7 +40,7 @@ export const columns = [
     label: "Última Evaluación",
     options: {
       filter: false,
-      sort: true,
+      sort: false,
       customBodyRender: (value, tableMeta) => {
         const text = tableMeta.rowData[4];
 
@@ -98,7 +98,7 @@ export const columns = [
     label: "Penúltima Evaluación",
     options: {
       filter: false,
-      sort: true,
+      sort: false,
       customBodyRender: (value, tableMeta) => {
         const text = tableMeta.rowData[7];
 
@@ -156,7 +156,7 @@ export const columns = [
     label: "Antepenúltima Evaluación",
     options: {
       filter: false,
-      sort: true,
+      sort: false,
       customBodyRender: (value, tableMeta) => {
         const text = tableMeta.rowData[9];
         let colorBadge = "success";
