@@ -54,6 +54,15 @@ export const columns = [
         const firstMeliaId = tableMeta.rowData[27];
         const firstGastronomyId = tableMeta.rowData[26];
 
+        const urlAdd =
+          firstPayTimeId === null
+            ? "#"
+            : `/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${firstPayTimeId}`;
+        const titleAdd =
+          firstPayTimeId === null
+            ? "El último mes de evaluación no esta registrado"
+            : `Realizar evaluación de Gastronomía a ${fullName} en ${firstPayTimeName}`;
+
         let colorBadge = "success";
         if (text !== null) {
           if (text.includes("MB")) colorBadge = "success";
@@ -83,13 +92,8 @@ export const columns = [
                 </Tooltip>
               </LinkContainer>
             ) : (
-              <LinkContainer
-                to={`/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${firstPayTimeId}`}
-              >
-                <Tooltip
-                  title={`Realizar evaluación de Gastronomía a ${fullName} en ${firstPayTimeName}`}
-                  placement="bottom"
-                >
+              <LinkContainer to={urlAdd}>
+                <Tooltip title={titleAdd} placement="bottom">
                   <h5 className="pointer">
                     <CBadge color={"danger"}>No Registrada</CBadge>
                   </h5>
@@ -140,6 +144,15 @@ export const columns = [
         const secondMeliaId = tableMeta.rowData[22];
         const secondGastronomyId = tableMeta.rowData[23];
 
+        const urlAdd =
+          secondPayTimeId === null
+            ? "#"
+            : `/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${secondPayTimeId}`;
+        const titleAdd =
+          secondPayTimeId === null
+            ? "El penúltimo mes de evaluación no esta registrado"
+            : `Realizar evaluación de Gastronomía a ${fullName} en ${secondPayTimeName}`;
+
         let colorBadge = "success";
         if (text !== null) {
           if (text.includes("MB")) colorBadge = "success";
@@ -169,13 +182,8 @@ export const columns = [
                 </Tooltip>
               </LinkContainer>
             ) : (
-              <LinkContainer
-                to={`/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${secondPayTimeId}`}
-              >
-                <Tooltip
-                  title={`Realizar evaluación de Gastronomía a ${fullName} en ${secondPayTimeName}`}
-                  placement="bottom"
-                >
+              <LinkContainer to={urlAdd}>
+                <Tooltip title={titleAdd} placement="bottom">
                   <h5 className="pointer">
                     <CBadge color={"danger"}>No Registrada</CBadge>
                   </h5>
@@ -226,6 +234,15 @@ export const columns = [
         const thirdMeliaId = tableMeta.rowData[18];
         const thirdGastronomyId = tableMeta.rowData[19];
 
+        const urlAdd =
+          thirdPayTimeId === null
+            ? "#"
+            : `/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${thirdPayTimeId}`;
+        const titleAdd =
+          thirdPayTimeId === null
+            ? "El antepenúltimo mes de evaluación no esta registrado"
+            : `Realizar evaluación de Gastronomía a ${fullName} en ${thirdPayTimeName}`;
+
         let colorBadge = "success";
         if (text !== null) {
           if (text.includes("MB")) colorBadge = "success";
@@ -255,13 +272,8 @@ export const columns = [
                 </Tooltip>
               </LinkContainer>
             ) : (
-              <LinkContainer
-                to={`/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${thirdPayTimeId}`}
-              >
-                <Tooltip
-                  title={`Realizar evaluación de Gastronomía a ${fullName} en ${thirdPayTimeName}`}
-                  placement="bottom"
-                >
+              <LinkContainer to={urlAdd}>
+                <Tooltip title={titleAdd} placement="bottom">
                   <h5 className="pointer">
                     <CBadge color={"danger"}>No Registrada</CBadge>
                   </h5>
@@ -297,7 +309,7 @@ export const columns = [
   // Filters
   {
     name: "firstcalificacion",
-    label: "última Evaluación",
+    label: "Última Evaluación",
     options: {
       filter: true,
       filterType: "dropdown",
@@ -307,7 +319,7 @@ export const columns = [
   },
   {
     name: "secondcalificacion",
-    label: "Última Evaluación",
+    label: "Penúltima Evaluación",
     options: {
       filter: true,
       filterType: "dropdown",
