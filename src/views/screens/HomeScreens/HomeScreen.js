@@ -174,12 +174,16 @@ const HomeScreen = ({ history }) => {
         </CCard>
       </CCardGroup>
 
-      {loadingTable ? (
-        <Loader />
-      ) : errorTable ? (
-        <Message variant="danger">{errorTable}</Message>
-      ) : (
-        evaluationsTable && <TableEvalInfo table={evaluationsTable} />
+      {userInfo?.isFoodAndDrinkBoss && (
+        <React.Fragment>
+          {loadingTable ? (
+            <Loader />
+          ) : errorTable ? (
+            <Message variant="danger">{errorTable}</Message>
+          ) : (
+            evaluationsTable && <TableEvalInfo table={evaluationsTable} />
+          )}
+        </React.Fragment>
       )}
     </React.Fragment>
   );
