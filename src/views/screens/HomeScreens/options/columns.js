@@ -1,5 +1,8 @@
 import { CBadge } from "@coreui/react";
 import { FaHotel } from "react-icons/all";
+import { LinkContainer } from "react-router-bootstrap";
+import { Tooltip } from "@material-ui/core";
+
 export const columns = [
   {
     name: "name",
@@ -43,27 +46,55 @@ export const columns = [
       sort: false,
       customBodyRender: (value, tableMeta) => {
         const text = tableMeta.rowData[4];
+        const hotelId = tableMeta.rowData[14];
+        const workerId = tableMeta.rowData[15];
+        const fullName = tableMeta.rowData[0];
+        const firstPayTimeId = tableMeta.rowData[24];
+        const firstPayTimeName = tableMeta.rowData[25];
+        const firstMeliaId = tableMeta.rowData[27];
+        const firstGastronomyId = tableMeta.rowData[26];
 
         let colorBadge = "success";
         if (text !== null) {
-          colorBadge = text.includes("M")
-            ? "danger"
-            : text.includes("B")
-            ? "info"
-            : text.includes("R")
-            ? "warning"
-            : "success";
+          if (text.includes("MB")) colorBadge = "success";
+          else {
+            colorBadge = text.includes("M")
+              ? "danger"
+              : text.includes("B")
+              ? "info"
+              : text.includes("R")
+              ? "warning"
+              : "success";
+          }
         }
         return (
           <div>
             {value ? (
-              <h5>
-                <CBadge color={colorBadge}>{text}</CBadge>
-              </h5>
+              <LinkContainer
+                to={`/evaluation/monthly/melia/show/${hotelId}/${workerId}/${firstPayTimeId}/${firstGastronomyId}/${firstMeliaId}`} /* Show Url */
+              >
+                <Tooltip
+                  title={`Consultar evaluación de Melia a ${fullName} en ${firstPayTimeName}`}
+                  placement="bottom"
+                >
+                  <h5 className="pointer">
+                    <CBadge color={colorBadge}>{text}</CBadge>
+                  </h5>
+                </Tooltip>
+              </LinkContainer>
             ) : (
-              <h5>
-                <CBadge color={"danger"}>No Registrada</CBadge>
-              </h5>
+              <LinkContainer
+                to={`/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${firstPayTimeId}`}
+              >
+                <Tooltip
+                  title={`Realizar evaluación de Gastronomía a ${fullName} en ${firstPayTimeName}`}
+                  placement="bottom"
+                >
+                  <h5 className="pointer">
+                    <CBadge color={"danger"}>No Registrada</CBadge>
+                  </h5>
+                </Tooltip>
+              </LinkContainer>
             )}
           </div>
         );
@@ -101,27 +132,55 @@ export const columns = [
       sort: false,
       customBodyRender: (value, tableMeta) => {
         const text = tableMeta.rowData[7];
+        const hotelId = tableMeta.rowData[14];
+        const workerId = tableMeta.rowData[15];
+        const fullName = tableMeta.rowData[0];
+        const secondPayTimeId = tableMeta.rowData[20];
+        const secondPayTimeName = tableMeta.rowData[21];
+        const secondMeliaId = tableMeta.rowData[22];
+        const secondGastronomyId = tableMeta.rowData[23];
 
         let colorBadge = "success";
         if (text !== null) {
-          colorBadge = text.includes("M")
-            ? "danger"
-            : text.includes("B")
-            ? "info"
-            : text.includes("R")
-            ? "warning"
-            : "success";
+          if (text.includes("MB")) colorBadge = "success";
+          else {
+            colorBadge = text.includes("M")
+              ? "danger"
+              : text.includes("B")
+              ? "info"
+              : text.includes("R")
+              ? "warning"
+              : "success";
+          }
         }
         return (
           <div>
             {value ? (
-              <h5>
-                <CBadge color={colorBadge}>{text}</CBadge>
-              </h5>
+              <LinkContainer
+                to={`/evaluation/monthly/melia/show/${hotelId}/${workerId}/${secondPayTimeId}/${secondGastronomyId}/${secondMeliaId}`} /* Show Url */
+              >
+                <Tooltip
+                  title={`Consultar evaluación de Melia a ${fullName} en ${secondPayTimeName}`}
+                  placement="bottom"
+                >
+                  <h5 className="pointer">
+                    <CBadge color={colorBadge}>{text}</CBadge>
+                  </h5>
+                </Tooltip>
+              </LinkContainer>
             ) : (
-              <h5>
-                <CBadge color={"danger"}>No Registrada</CBadge>
-              </h5>
+              <LinkContainer
+                to={`/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${secondPayTimeId}`}
+              >
+                <Tooltip
+                  title={`Realizar evaluación de Gastronomía a ${fullName} en ${secondPayTimeName}`}
+                  placement="bottom"
+                >
+                  <h5 className="pointer">
+                    <CBadge color={"danger"}>No Registrada</CBadge>
+                  </h5>
+                </Tooltip>
+              </LinkContainer>
             )}
           </div>
         );
@@ -158,27 +217,56 @@ export const columns = [
       filter: false,
       sort: false,
       customBodyRender: (value, tableMeta) => {
-        const text = tableMeta.rowData[9];
+        const text = tableMeta.rowData[10];
+        const hotelId = tableMeta.rowData[14];
+        const workerId = tableMeta.rowData[15];
+        const fullName = tableMeta.rowData[0];
+        const thirdPayTimeId = tableMeta.rowData[16];
+        const thirdPayTimeName = tableMeta.rowData[17];
+        const thirdMeliaId = tableMeta.rowData[18];
+        const thirdGastronomyId = tableMeta.rowData[19];
+
         let colorBadge = "success";
         if (text !== null) {
-          colorBadge = text.includes("M")
-            ? "danger"
-            : text.includes("B")
-            ? "info"
-            : text.includes("R")
-            ? "warning"
-            : "success";
+          if (text.includes("MB")) colorBadge = "success";
+          else {
+            colorBadge = text.includes("M")
+              ? "danger"
+              : text.includes("B")
+              ? "info"
+              : text.includes("R")
+              ? "warning"
+              : "success";
+          }
         }
         return (
           <div>
             {value ? (
-              <h5>
-                <CBadge color={colorBadge}>{text}</CBadge>
-              </h5>
+              <LinkContainer
+                to={`/evaluation/monthly/melia/show/${hotelId}/${workerId}/${thirdPayTimeId}/${thirdGastronomyId}/${thirdMeliaId}`} /* Show Url */
+              >
+                <Tooltip
+                  title={`Consultar evaluación de Melia a ${fullName} en ${thirdPayTimeName}`}
+                  placement="bottom"
+                >
+                  <h5 className="pointer">
+                    <CBadge color={colorBadge}>{text}</CBadge>
+                  </h5>
+                </Tooltip>
+              </LinkContainer>
             ) : (
-              <h5>
-                <CBadge color={"danger"}>No Registrada</CBadge>
-              </h5>
+              <LinkContainer
+                to={`/evaluation/gastronomy/monthly/add/${hotelId}/${workerId}/${thirdPayTimeId}`}
+              >
+                <Tooltip
+                  title={`Realizar evaluación de Gastronomía a ${fullName} en ${thirdPayTimeName}`}
+                  placement="bottom"
+                >
+                  <h5 className="pointer">
+                    <CBadge color={"danger"}>No Registrada</CBadge>
+                  </h5>
+                </Tooltip>
+              </LinkContainer>
             )}
           </div>
         );
@@ -233,6 +321,134 @@ export const columns = [
     options: {
       filter: true,
       filterType: "dropdown",
+      display: false,
+      viewColumns: false,
+    },
+  },
+
+  // IDS
+  {
+    name: "hotelId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "workerId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "thirdPayTimeId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "thirdPayTimeName",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "thirdMeliaId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "thirdGastronomyId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "secondPayTimeId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "secondPayTimeName",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "secondMeliaId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "secondGastronomyId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "firstPayTimeId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "firstPayTimeName",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "firstGastronomyId",
+    label: "",
+    options: {
+      filter: false,
+      display: false,
+      viewColumns: false,
+    },
+  },
+  {
+    name: "firstEvalId",
+    label: "",
+    options: {
+      filter: false,
       display: false,
       viewColumns: false,
     },
