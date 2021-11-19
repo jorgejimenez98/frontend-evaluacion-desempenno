@@ -2,6 +2,7 @@ import {
   NUMBERS,
   RANGE_EVALUATION,
   ANUAL_EVALUATION,
+  TABLE_EVALUAIIONS,
 } from "../constants/dashboardConstants";
 
 export const numbersReducers = (
@@ -88,6 +89,26 @@ export const evaluationAnualRangeReducer = (
 
     case ANUAL_EVALUATION.EVALUATIONS_RANGE_RESET:
       return { evaluationRange: { veryGood: 0, good: 0, bad: 0 } };
+
+    default:
+      return state;
+  }
+};
+
+export const evaluationTableReducer = (state = { evaluations: [] }, action) => {
+  switch (action.type) {
+    case TABLE_EVALUAIIONS.GET:
+      return { loading: true };
+
+    case TABLE_EVALUAIIONS.SUCCESS:
+      const data = action.payload;
+      return { evaluations: data };
+
+    case TABLE_EVALUAIIONS.ERROR:
+      return { loading: false, error: action.payload };
+
+    case TABLE_EVALUAIIONS.RESET:
+      return { evaluations: [] };
 
     default:
       return state;
