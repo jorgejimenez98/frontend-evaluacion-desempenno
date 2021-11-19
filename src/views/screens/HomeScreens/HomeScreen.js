@@ -7,11 +7,13 @@ import {
   RANGE_EVALUATION,
   ANUAL_EVALUATION,
   NUMBERS,
+  TABLE_EVALUAIIONS,
 } from "src/redux/constants/dashboardConstants";
 import {
   getMainNumbers,
   getRangeEvaluation,
   getAnualRangeEvaluation,
+  getTableEval,
 } from "src/redux/actions/dashboardActions";
 import {
   redirectLogin,
@@ -52,6 +54,13 @@ const HomeScreen = ({ history }) => {
     evaluationRange: evaluationAnualRange,
   } = useSelector((state) => state.evaluationAnualRange);
 
+  // Evaluation Table Selector
+  const {
+    loading: loadingTable,
+    error: errorTable,
+    evaluations: evaluationsTable,
+  } = useSelector((state) => state.evaluationTable);
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -62,11 +71,13 @@ const HomeScreen = ({ history }) => {
       dispatch(getMainNumbers());
       dispatch(getRangeEvaluation());
       dispatch(getAnualRangeEvaluation());
+      dispatch(getTableEval());
     }
     return () => {
       dispatch({ type: NUMBERS.DATA_RESET });
       dispatch({ type: RANGE_EVALUATION.EVALUATIONS_RANGE_RESET });
       dispatch({ type: ANUAL_EVALUATION.EVALUATIONS_RANGE_RESET });
+      dispatch({ type: TABLE_EVALUAIIONS.RESET });
     };
   }, [userInfo, history, dispatch]);
 
@@ -163,7 +174,13 @@ const HomeScreen = ({ history }) => {
         </CCard>
       </CCardGroup>
 
-      <TableEvalInfo />
+      {loadingTable ? (
+        <Loader />
+      ) : errorTable ? (
+        <Message variant="danger">{errorTable}</Message>
+      ) : (
+        evaluationsTable && <TableEvalInfo table={evaluationsTable} />
+      )}
     </React.Fragment>
   );
 };
