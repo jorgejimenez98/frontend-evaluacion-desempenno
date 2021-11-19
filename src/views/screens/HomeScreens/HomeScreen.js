@@ -19,6 +19,7 @@ import {
 } from "src/containers/utils/userloginsettings.js";
 
 const WidgetsDropdown = lazy(() => import("../../widgets/WidgetsDropdown.js"));
+const TableEvalInfo = lazy(() => import("./TableEvalInfo"));
 
 const HomeScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -161,6 +162,8 @@ const HomeScreen = ({ history }) => {
           )}
         </CCard>
       </CCardGroup>
+
+      <TableEvalInfo />
     </React.Fragment>
   );
 };
